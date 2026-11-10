@@ -98,6 +98,28 @@
       text-shadow: var(--text-shadow);
     }
 
+    .music-toggle {
+      position: fixed;
+      right: max(16px, env(safe-area-inset-right));
+      bottom: max(16px, env(safe-area-inset-bottom));
+      z-index: 10;
+      min-height: 46px;
+      padding: 11px 17px;
+      color: #49283b;
+      background: rgb(255 247 249 / 94%);
+      border: 1px solid rgb(255 255 255 / 90%);
+      border-radius: 999px;
+      box-shadow: 0 5px 18px rgb(75 39 61 / 20%);
+      cursor: pointer;
+      font: 700 .95rem "Segoe UI", sans-serif;
+      backdrop-filter: blur(8px);
+    }
+
+    .music-toggle:focus-visible {
+      outline: 3px solid #8b4e78;
+      outline-offset: 3px;
+    }
+
     .music-hint {
       margin: 10px auto 0;
       color: var(--lilac);
@@ -716,6 +738,11 @@
         border-radius: 18px;
       }
 
+      .music-toggle {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+      }
+
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -755,6 +782,7 @@
   </style>
 </head>
 <body>
+  <button class="music-toggle" type="button" aria-pressed="false">♫ Iniciar música</button>
   <main>
     <section class="card" aria-labelledby="title">
       <span class="hero-heart" tabindex="0" aria-label="Un corazón rojo">♥</span>
@@ -876,6 +904,7 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     const daysTogether = document.querySelector(".days-together");
     const birthdayCountdowns = document.querySelectorAll(".birthday-countdown");
     const memoryPhotos = document.querySelectorAll(".memory-slideshow img");
+    const musicToggle = document.querySelector(".music-toggle");
     const musicHint = document.querySelector(".music-hint");
     const wheelOptions = [
       { label: "Saber cuánto te amo", section: "cuanto-te-amo" },
@@ -1007,6 +1036,8 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         musicStep = 0;
         isMusicPlaying = true;
         musicHint.hidden = true;
+        musicToggle.textContent = "Ⅱ Pausar música";
+        musicToggle.setAttribute("aria-pressed", "true");
         playMusicStep();
         musicTimer = window.setInterval(playMusicStep, 1100);
       } catch (error) {
@@ -1016,6 +1047,28 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         isMusicStarting = false;
       }
     };
+
+    const pauseBackgroundMusic = () => {
+      if (!isMusicPlaying || !audioContext || !musicGain) return;
+
+      window.clearInterval(musicTimer);
+      musicGain.gain.cancelScheduledValues(audioContext.currentTime);
+      musicGain.gain.setTargetAtTime(0.0001, audioContext.currentTime, 0.12);
+      isMusicPlaying = false;
+      musicToggle.textContent = "♫ Reanudar música";
+      musicToggle.setAttribute("aria-pressed", "false");
+    };
+
+    musicToggle.addEventListener("pointerdown", (event) => event.stopPropagation());
+    musicToggle.addEventListener("keydown", (event) => event.stopPropagation());
+    musicToggle.addEventListener("click", () => {
+      if (isMusicPlaying) {
+        pauseBackgroundMusic();
+        return;
+      }
+
+      startBackgroundMusic();
+    });
 
     window.addEventListener("load", () => {
       window.setTimeout(() => {
