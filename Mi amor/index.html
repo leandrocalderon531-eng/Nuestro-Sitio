@@ -380,36 +380,6 @@
       opacity: .75;
     }
 
-    .music-toggle {
-      position: fixed;
-      right: max(16px, env(safe-area-inset-right));
-      bottom: max(16px, env(safe-area-inset-bottom));
-      z-index: 10;
-      padding: 12px 18px;
-      color: #49283b;
-      background: rgb(255 247 249 / 94%);
-      border: 1px solid rgb(255 255 255 / 90%);
-      border-radius: 999px;
-      box-shadow: 0 5px 18px rgb(75 39 61 / 20%);
-      cursor: pointer;
-      font: 700 .95rem "Segoe UI", sans-serif;
-      backdrop-filter: blur(8px);
-    }
-
-    .music-toggle:hover {
-      background: #fff;
-    }
-
-    .music-toggle:focus-visible {
-      outline: 3px solid #8b4e78;
-      outline-offset: 3px;
-    }
-
-    .music-toggle:disabled {
-      cursor: default;
-      opacity: .92;
-    }
-
     .heart-key-area,
     .heart-challenge,
     .love-timeline {
@@ -735,12 +705,6 @@
         border-radius: 18px;
       }
 
-      .music-toggle {
-        right: max(12px, env(safe-area-inset-right));
-        bottom: max(12px, env(safe-area-inset-bottom));
-        min-height: 44px;
-        padding: 10px 15px;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -780,7 +744,6 @@
   </style>
 </head>
 <body>
-  <button class="music-toggle" type="button" aria-pressed="false">♫ Iniciar música</button>
   <main>
     <section class="card" aria-labelledby="title">
       <span class="hero-heart" tabindex="0" aria-label="Un corazón rojo">♥</span>
@@ -901,7 +864,6 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     const daysTogether = document.querySelector(".days-together");
     const birthdayCountdowns = document.querySelectorAll(".birthday-countdown");
     const memoryPhotos = document.querySelectorAll(".memory-slideshow img");
-    const musicToggle = document.querySelector(".music-toggle");
     const wheelOptions = [
       { label: "Saber cuánto te amo", section: "cuanto-te-amo" },
       { label: "Nuestras fotos juntos", section: "nuestras-fotos" }
@@ -971,6 +933,7 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     let musicTimer;
     let musicStep = 0;
     let isMusicPlaying = false;
+    let isMusicStarting = false;
 
     const playMusicNote = (frequency, startTime, duration, volume, type = "sine") => {
       const oscillator = audioContext.createOscillator();
@@ -1002,14 +965,13 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     };
 
     const startBackgroundMusic = async () => {
-      if (isMusicPlaying) return;
+      if (isMusicPlaying || isMusicStarting) return;
+      isMusicStarting = true;
       try {
         if (!audioContext) {
           const AudioContextConstructor = window.AudioContext;
           if (!AudioContextConstructor) {
-            musicToggle.textContent = "Audio no disponible";
-            musicToggle.disabled = true;
-            return;
+            throw new Error("Este navegador no admite Web Audio.");
           }
           audioContext = new AudioContextConstructor();
           musicGain = audioContext.createGain();
@@ -1018,25 +980,25 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         }
 
         await audioContext.resume();
+        if (audioContext.state !== "running") return;
         musicGain.gain.cancelScheduledValues(audioContext.currentTime);
         musicGain.gain.setTargetAtTime(0.32, audioContext.currentTime, 0.6);
         musicStep = 0;
         isMusicPlaying = true;
-        musicToggle.textContent = "♫ Música sonando";
-        musicToggle.setAttribute("aria-pressed", "true");
-        musicToggle.disabled = true;
+        window.removeEventListener("pointerdown", startBackgroundMusic);
+        window.removeEventListener("keydown", startBackgroundMusic);
         playMusicStep();
         musicTimer = window.setInterval(playMusicStep, 1100);
       } catch (error) {
         console.error("No se pudo iniciar la música de fondo.", error);
-        musicToggle.disabled = false;
-        musicToggle.textContent = "Reintentar música";
+      } finally {
+        isMusicStarting = false;
       }
     };
 
-    musicToggle.addEventListener("click", () => {
-      startBackgroundMusic();
-    });
+    window.addEventListener("pointerdown", startBackgroundMusic);
+    window.addEventListener("keydown", startBackgroundMusic);
+    window.addEventListener("load", startBackgroundMusic, { once: true });
 
     const renderWheel = () => {
       const sliceAngle = 360 / remainingOptions.length;
