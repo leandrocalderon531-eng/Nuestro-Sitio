@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f6a8c7">
+  <title>Para ti, mi amor</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #3d2933;
+      --muted: #56434c;
+      --rose: #b83255;
+      --lilac: #60427c;
+      --paper: #f6a8c7;
+      --text-shadow: 0 1px 3px rgb(255 255 255 / 90%);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 0;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(120deg, #f3a5c4, #a9d8a4, #f6df83, #f3a5c4);
+      background-size: 300% 300%;
+      animation: color-shift 18s ease-in-out infinite;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    @keyframes color-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    main {
+      min-height: 100vh;
+      padding: 38px 22px 64px;
+    }
+
+    .card {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: clamp(24px, 5vw, 54px);
+      text-align: center;
+      background: transparent;
+    }
+
+    .hero-heart {
+      display: inline-block;
+      margin: 0 auto 14px;
+      color: #c52e50;
+      font-family: "Segoe UI", sans-serif;
+      font-size: clamp(3rem, 8vw, 4.5rem);
+      line-height: 1;
+      transition: transform 300ms ease;
+    }
+
+    .hero-heart:hover,
+    .hero-heart:focus-visible {
+      transform: scale(1.4);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--lilac);
+      font-family: "Segoe UI", sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-shadow: var(--text-shadow);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 8vw, 5rem);
+      font-weight: 400;
+      letter-spacing: -0.055em;
+      line-height: 1.05;
+      text-shadow: var(--text-shadow);
+    }
+
+    h1 span {
+      color: var(--rose);
+      font-style: italic;
+    }
+
+    .message {
+      max-width: 520px;
+      margin: 12px auto 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      line-height: 1.75;
+      text-shadow: var(--text-shadow);
+    }
+
+    .letter-prompt {
+      margin: 24px 0 0;
+      color: var(--lilac);
+      font-size: 0.95rem;
+      font-style: italic;
+      text-shadow: var(--text-shadow);
+    }
+
+    .letter-button {
+      position: relative;
+      display: block;
+      width: min(100%, 460px);
+      height: 420px;
+      margin: 8px auto 0;
+      padding: 0;
+      overflow: hidden;
+      color: inherit;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .letter-button:focus-visible {
+      outline: 3px solid var(--lilac);
+      outline-offset: 4px;
+      border-radius: 12px;
+    }
+
+    .envelope {
+      position: absolute;
+      z-index: 1;
+      right: 7%;
+      bottom: 20px;
+      left: 7%;
+      height: 190px;
+      overflow: visible;
+      background: linear-gradient(145deg, #9e5366, #71394f);
+      border-radius: 8px;
+      box-shadow: 0 16px 30px rgb(87 57 79 / 18%);
+    }
+
+    .letter-paper {
+      position: absolute;
+      z-index: 2;
+      right: 9%;
+      bottom: 34px;
+      left: 9%;
+      display: flex;
+      height: 245px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px clamp(18px, 5vw, 36px);
+      background: #302631;
+      border: 1px solid #51404f;
+      border-radius: 5px;
+      box-shadow: 0 5px 18px rgb(87 57 79 / 10%);
+      opacity: 0;
+      transform: translateY(190px);
+      transition: transform 700ms cubic-bezier(.2, .8, .2, 1), opacity 350ms ease;
+    }
+
+    .letter-paper strong {
+      margin-bottom: 12px;
+      color: var(--rose);
+      font-size: 1.35rem;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .letter-paper span {
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+
+    .envelope-front {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      background: linear-gradient(155deg, #a96070, #7a4056);
+      clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .envelope-flap {
+      position: absolute;
+      z-index: 4;
+      inset: 0 0 auto;
+      height: 72%;
+      background: linear-gradient(160deg, #ba7780, #915666);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 550ms ease;
+    }
+
+    .envelope-seal {
+      position: absolute;
+      z-index: 5;
+      top: 54%;
+      left: 50%;
+      color: #fff8f4;
+      font-family: "Segoe UI", sans-serif;
+      font-size: 2rem;
+      line-height: 1;
+      transform: translate(-50%, -50%);
+      transition: opacity 200ms ease;
+    }
+
+    .letter-button.is-open .letter-paper {
+      opacity: 1;
+      transform: translateY(-125px);
+    }
+
+    .letter-button.is-open .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    .letter-button.is-open .envelope-seal {
+      opacity: 0;
+    }
+
+    .wheel-section,
+    .destination-section {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 48px 24px;
+      text-align: center;
+      scroll-margin-top: 24px;
+    }
+
+    .wheel-section h2,
+    .destination-section h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 400;
+      text-shadow: 0 1px 3px rgb(255 255 255 / 90%);
+    }
+
+    .wheel-section > p,
+    .destination-section > p {
+      color: var(--muted);
+      line-height: 1.7;
+      text-shadow: var(--text-shadow);
+    }
+
+    .wheel-pointer {
+      position: relative;
+      z-index: 1;
+      width: 0;
+      height: 0;
+      margin: 16px auto -12px;
+      border-top: 28px solid #fff4f0;
+      border-right: 17px solid transparent;
+      border-left: 17px solid transparent;
+      filter: drop-shadow(0 3px 4px #000);
+    }
+
+    .wheel {
+      position: relative;
+      width: min(78vw, 360px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 7px solid #fff0ec;
+      border-radius: 50%;
+      background: conic-gradient(
+        from -60deg,
+        #a83e59 0deg 120deg,
+        #60477e 120deg 240deg,
+        #bd5a70 240deg 360deg
+      );
+      box-shadow: 0 12px 35px rgb(0 0 0 / 45%), inset 0 0 0 3px rgb(255 255 255 / 28%);
+      transition: transform 4.5s cubic-bezier(.12, .72, .12, 1);
+      will-change: transform;
+      --wheel-rotation: 0deg;
+      transform: rotate(var(--wheel-rotation));
+    }
+
+    .wheel-section.is-spinning .wheel {
+      animation: wheel-glow 750ms ease-in-out infinite alternate;
+    }
+
+    .wheel-section.is-spinning .wheel-pointer {
+      animation: pointer-tick 250ms ease-in-out 18;
+      transform-origin: 50% 0;
+    }
+
+    .wheel-section.is-landed .wheel {
+      animation: wheel-land 650ms ease-out;
+    }
+
+    .wheel-section.is-landed .wheel-pointer {
+      animation: pointer-land 650ms ease-out;
+      transform-origin: 50% 0;
+    }
+
+    .wheel-section.is-landed .wheel-label-text {
+      animation: label-land 650ms ease-out;
+    }
+
+    @keyframes wheel-glow {
+      from { box-shadow: 0 12px 35px rgb(0 0 0 / 45%), inset 0 0 0 3px rgb(255 255 255 / 28%); }
+      to { box-shadow: 0 12px 42px rgb(166 54 100 / 70%), inset 0 0 0 5px rgb(255 255 255 / 45%); }
+    }
+
+    @keyframes pointer-tick {
+      0%, 100% { transform: rotate(0); }
+      50% { transform: rotate(8deg); }
+    }
+
+    @keyframes wheel-land {
+      0% { filter: brightness(1); }
+      35% { filter: brightness(1.45); }
+      65% { filter: brightness(.92); }
+      100% { filter: brightness(1); }
+    }
+
+    @keyframes pointer-land {
+      0%, 100% { transform: rotate(0); }
+      25% { transform: rotate(-15deg); }
+      55% { transform: rotate(10deg); }
+      75% { transform: rotate(-5deg); }
+    }
+
+    @keyframes label-land {
+      0%, 100% { scale: 1; }
+      40% { scale: 1.18; }
+    }
+
+    .wheel-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      transform: rotate(var(--label-angle)) translateY(-82px);
+      transition: transform 4.5s cubic-bezier(.12, .72, .12, 1);
+      pointer-events: none;
+    }
+
+    .wheel-label-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: clamp(112px, 36vw, 148px);
+      color: #fffaf0;
+      font-family: "Segoe UI", sans-serif;
+      font-size: clamp(.72rem, 2.8vw, .9rem);
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+      text-shadow: 0 2px 4px #24121b, 0 0 2px #24121b;
+      transform: translate(-50%, -50%) rotate(calc(0deg - var(--label-angle) - var(--wheel-rotation)));
+      transition: transform 4.5s cubic-bezier(.12, .72, .12, 1);
+    }
+
+    .spin-button {
+      margin-top: 26px;
+      padding: 13px 28px;
+      color: #28151d;
+      background: linear-gradient(135deg, #ffd1d5, #e8caff);
+      border: 0;
+      border-radius: 999px;
+      box-shadow: 0 6px 20px rgb(0 0 0 / 35%);
+      cursor: pointer;
+      font: 700 1rem "Segoe UI", sans-serif;
+    }
+
+    .spin-button:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 4px;
+    }
+
+    .spin-button:disabled {
+      cursor: wait;
+      opacity: .75;
+    }
+
+    .music-toggle {
+      position: fixed;
+      right: max(16px, env(safe-area-inset-right));
+      bottom: max(16px, env(safe-area-inset-bottom));
+      z-index: 10;
+      padding: 12px 18px;
+      color: #49283b;
+      background: rgb(255 247 249 / 94%);
+      border: 1px solid rgb(255 255 255 / 90%);
+      border-radius: 999px;
+      box-shadow: 0 5px 18px rgb(75 39 61 / 20%);
+      cursor: pointer;
+      font: 700 .95rem "Segoe UI", sans-serif;
+      backdrop-filter: blur(8px);
+    }
+
+    .music-toggle:hover {
+      background: #fff;
+    }
+
+    .music-toggle:focus-visible {
+      outline: 3px solid #8b4e78;
+      outline-offset: 3px;
+    }
+
+    .music-toggle:disabled {
+      cursor: default;
+      opacity: .92;
+    }
+
+    .heart-key-area,
+    .heart-challenge,
+    .love-timeline {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .heart-key-area[hidden],
+    .heart-challenge[hidden],
+    .love-timeline[hidden] {
+      display: none;
+    }
+
+    .heart-key,
+    .heart-challenge h2,
+    .love-timeline h2 {
+      color: var(--ink);
+      text-shadow: var(--text-shadow);
+    }
+
+    .heart-key {
+      margin-top: 20px;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #ffd1d5, #e8caff);
+      border: 2px solid #fff4f0;
+      border-radius: 999px;
+      box-shadow: 0 6px 20px rgb(0 0 0 / 24%);
+      color: #49283b;
+      cursor: pointer;
+      font: 700 1rem "Segoe UI", sans-serif;
+    }
+
+    .heart-key:hover,
+    .heart-key:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .heart-key:focus-visible,
+    .big-heart:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 4px;
+    }
+
+    .heart-challenge h2,
+    .love-timeline h2 {
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
+    }
+
+    .heart-challenge p {
+      color: var(--muted);
+      text-shadow: var(--text-shadow);
+    }
+
+    .big-heart {
+      display: block;
+      margin: 14px auto;
+      padding: 0 24px;
+      border: 0;
+      background: transparent;
+      color: #d82f59;
+      cursor: pointer;
+      font: clamp(8rem, 35vw, 15rem) "Segoe UI", sans-serif;
+      line-height: 1.2;
+      text-shadow: 0 5px 14px rgb(130 22 58 / 30%);
+      transform: scale(var(--heart-scale, 1));
+      transition: transform 160ms ease, opacity 350ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .big-heart.is-exploding {
+      opacity: 0;
+      transform: scale(2.2);
+    }
+
+    .timeline-list {
+      position: relative;
+      display: flex;
+      gap: 0;
+      width: min(100%, 760px);
+      margin: 34px auto 0;
+      padding: 0 8px 14px;
+      overflow-x: auto;
+      list-style: none;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      scrollbar-color: #b96c8b rgb(255 255 255 / 45%);
+      scrollbar-width: thin;
+    }
+
+    .timeline-list li {
+      position: relative;
+      flex: 0 0 150px;
+      padding: 24px 8px 8px;
+      text-align: center;
+      scroll-snap-align: center;
+    }
+
+    .timeline-list li::before,
+    .timeline-list li::after {
+      position: absolute;
+      content: "";
+    }
+
+    .timeline-list li::before {
+      z-index: 1;
+      top: 0;
+      left: calc(50% - 7px);
+      width: 14px;
+      height: 14px;
+      background: #c83b69;
+      border: 3px solid #fff8f5;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgb(75 39 61 / 22%);
+    }
+
+    .timeline-list li::after {
+      top: 5px;
+      left: 50%;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #c83b69, #8c65a5, #78a96f);
+    }
+
+    .timeline-list li:last-child::after {
+      display: none;
+    }
+
+    .timeline-list time {
+      display: block;
+      color: #773751;
+      font: 700 .9rem/1.35 "Segoe UI", sans-serif;
+      text-shadow: var(--text-shadow);
+    }
+
+    .days-together {
+      width: fit-content;
+      max-width: 100%;
+      margin: 28px auto 0;
+      padding: 14px 22px;
+      color: #773751;
+      background: rgb(255 255 255 / 62%);
+      border: 1px solid rgb(255 255 255 / 78%);
+      border-radius: 999px;
+      box-shadow: 0 4px 14px rgb(75 39 61 / 12%);
+      font: 700 1rem "Segoe UI", sans-serif;
+      text-shadow: var(--text-shadow);
+    }
+
+    .birthday-countdowns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+      gap: 14px;
+      max-width: 620px;
+      margin: 22px auto 0;
+    }
+
+    .birthday-countdown {
+      padding: 18px 20px;
+      color: #773751;
+      background: rgb(255 255 255 / 68%);
+      border: 1px solid rgb(255 255 255 / 82%);
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgb(75 39 61 / 12%);
+    }
+
+    .birthday-countdown h3 {
+      margin: 0 0 8px;
+      font: 700 1rem "Segoe UI", sans-serif;
+    }
+
+    .birthday-countdown p {
+      margin: 0;
+      font: 0.95rem/1.5 "Segoe UI", sans-serif;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .memory-slideshow {
+      position: relative;
+      width: min(100%, 560px);
+      aspect-ratio: 3 / 2;
+      margin: 28px auto 0;
+      overflow: hidden;
+      background: rgb(255 255 255 / 58%);
+      border: 7px solid rgb(255 255 255 / 82%);
+      border-radius: 22px;
+      box-shadow: 0 10px 28px rgb(75 39 61 / 20%);
+    }
+
+    .memory-slideshow img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+
+    .memory-slideshow img.is-active {
+      opacity: 1;
+    }
+
+    .memory-slideshow figcaption {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 24px 16px 14px;
+      color: #fff;
+      background: linear-gradient(transparent, rgb(45 27 38 / 72%));
+      font: 700 0.95rem "Segoe UI", sans-serif;
+      text-shadow: 0 1px 3px rgb(0 0 0 / 65%);
+    }
+
+    .destination-section {
+      min-height: 260px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 12px;
+    }
+
+    .destination-section:not(.is-visible) {
+      display: none;
+    }
+
+    .destination-section > p {
+      max-width: 650px;
+      margin: 0;
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 24px 12px 48px;
+      }
+
+      .card {
+        padding: 24px 8px;
+      }
+
+      h1 {
+        font-size: clamp(2.1rem, 10vw, 2.8rem);
+      }
+
+      .eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+      }
+
+      .letter-button {
+        height: 360px;
+      }
+
+      .envelope {
+        bottom: 18px;
+        height: 160px;
+      }
+
+      .letter-paper {
+        bottom: 28px;
+        height: 205px;
+        padding: 18px 14px;
+      }
+
+      .letter-button.is-open .letter-paper {
+        transform: translateY(-112px);
+      }
+
+      .wheel-section > p {
+        max-width: 32ch;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .wheel {
+        width: min(78vw, 340px);
+      }
+
+      .spin-button {
+        min-height: 46px;
+        padding: 12px 22px;
+      }
+
+      .heart-key-area,
+      .heart-challenge,
+      .love-timeline {
+        padding: 26px 8px;
+      }
+
+      .timeline-list {
+        width: 100%;
+        margin-top: 28px;
+      }
+
+      .timeline-list li {
+        flex-basis: 132px;
+      }
+
+      .timeline-list time {
+        font-size: 0.82rem;
+      }
+
+      .days-together {
+        padding: 12px 16px;
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      .birthday-countdowns {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .birthday-countdown {
+        padding: 16px;
+      }
+
+      .memory-slideshow {
+        width: 100%;
+        border-width: 5px;
+        border-radius: 18px;
+      }
+
+      .music-toggle {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+        min-height: 44px;
+        padding: 10px 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+
+      .hero-heart,
+      .letter-paper,
+      .envelope-flap,
+      .envelope-seal,
+      .wheel,
+      .wheel-label,
+      .big-heart {
+        transition: none;
+      }
+
+      .wheel-section.is-spinning .wheel,
+      .wheel-section.is-spinning .wheel-pointer,
+      .wheel-section.is-landed .wheel,
+      .wheel-section.is-landed .wheel-pointer,
+      .wheel-section.is-landed .wheel-label-text {
+        animation: none;
+      }
+
+      body {
+        animation: none;
+        background: linear-gradient(120deg, #f3a5c4, #a9d8a4, #f6df83);
+      }
+
+      .memory-slideshow img {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="music-toggle" type="button" aria-pressed="false">♫ Iniciar música</button>
+  <main>
+    <section class="card" aria-labelledby="title">
+      <span class="hero-heart" tabindex="0" aria-label="Un corazón rojo">♥</span>
+      <p class="eyebrow">Un detalle hecho con amor</p>
+      <h1 id="title">Para ti, <span>mi amor</span></h1>
+
+      <p class="message">
+        Para mi pinchecha.
+      </p>
+
+      <p class="letter-prompt">Haz clic en el sobre para abrir tu carta</p>
+      <button class="letter-button" type="button" aria-expanded="false" aria-label="Abrir la carta">
+        <span class="letter-paper" aria-hidden="true">
+          <strong>Para la persona más especial</strong>
+          <span>Me encanta compartir mis días contigo. Tu sonrisa hace todo más bonito, y tenerte en mi vida es uno de mis regalos favoritos. Nunca olvides lo mucho que te amo. ♥</span>
+        </span>
+        <span class="envelope" aria-hidden="true">
+          <span class="envelope-front"></span>
+          <span class="envelope-flap"></span>
+          <span class="envelope-seal">♥</span>
+        </span>
+      </button>
+    </section>
+
+    <section class="wheel-section" id="ruleta" aria-labelledby="wheel-title">
+      <h2 id="wheel-title">¿Qué hacemos ahora?</h2>
+      <p>Gira la ruleta y deja que el azar elija una sorpresa.</p>
+      <div class="wheel-pointer" aria-hidden="true"></div>
+      <div class="wheel" role="img" aria-label="Ruleta">
+      </div>
+      <button class="spin-button" type="button">Girar la ruleta</button>
+    </section>
+
+    <section class="destination-section" id="cuanto-te-amo" aria-labelledby="love-title">
+      <h2 id="love-title">Saber cuánto te amo</h2>
+      <p>Mi amor, mi Pinchecha hermosa,
+
+No sé ni por dónde empezar , me faltan palabras, me faltan horas, me falta vida para decirte todo. Pero lo voy a intentar, porque te lo mereces todo, absolutamente todo.
+
+Desde que llegaste a mi vida, todo cambió. De verdad, todo. Antes mis días eran normales, aburridos, sin color. Y vos llegaste como si fueras un rayo de luz y le pusiste color a todo, le pusiste sentido a todo. Ahora entiendo por qué dicen que cuando llega la persona correcta, todo encaja. Porque con vos todo encaja, Pinchecha.
+
+Te amo, Elizabeth. Te amo con una fuerza que ni yo mismo entiendo que no importa lo que pase o si tuve un mal día, si vos estás riendo, yo estoy en paz.
+
+Te amo por cómo sos. Por tu forma de ser tan única, tan vos. Por tu corazón tan bonito, tan noble, tan lleno de amor, por cómo me miras, por cómo me hablas. Por cada mensajito que me mandas, por cada "te amo", por cada "te extraño", por cada audio que me deja sonriendo como tonto mirando el teléfono.
+
+Sos mi lugar seguro, Elizabeth. Sos la persona con la que quiero contarle todo, lo bueno y lo malo. Sos la primera persona en la que pienso cuando me despierto y la última cuando me duermo.. Y hasta en mis sueños apareces, porque ni dormido quiero dejar de estar con vos.
+
+Pinchecha, vos sos mi novia, mi mejor amiga, mi todo. Con vos quiero todo. Quiero seguir conociéndote, quiero seguir creciendo a tu lado
+
+Quiero que sepas que no hay nadie como vos. Nadie me pone nervioso como vos, nadie me hace sentir mariposas como vos, nadie me hace sentir tan feliz con tan solo un mensaje, con tan solo una llamada, con tan solo verte.
+
+Te amo en tus días buenos y en tus días malos. Te amo cuando estás feliz y cuando estás triste, porque en esos días te amo más todavía, porque quiero abrazarte, cuidarte, decirte que todo va a estar bien, que estoy acá, que siempre voy a estar acá para vos. No importa lo que pase, yo no me voy a ir. Yo me quedo con vos.
+
+Gracias, mi amor. Gracias por existir, gracias por llegar a mi vida, gracias por elegirme, gracias por amarme, gracias por tu paciencia, por tu cariño, por todo. Vos sos el mejor regalo que la vida me pudo dar y no lo voy a desperdiciar nunca.
+
+Mi Pinchecha, mi vida, mi corazón, mi alma, mi todo. Te prometo que voy a cuidarte, voy a respetarte, voy a amarte cada día. Te prometo que voy a hacer todo lo que esté en mis manos para verte sonreír, para que seas feliz, para que nunca te falte amor, porque vos te mereces todo el amor del mundo y yo te lo quiero dar todo.
+
+ Si me preguntan qué es mi hogar, yo digo tus brazos. Porque vos sos mi hogar, vos sos mi paz, vos sos mi felicidad, vos sos mi vida entera.
+
+Te amo hoy, te amo mañana, te amo siempre. Te amo con todo mi corazón, con toda mi alma, con todo mi ser, porque cada día te amo más y más y más, y nunca voy a dejar de amarte.
+
+Eres y siempre serás la mujer de mi vida, mi Pinchecha hermosa.
+
+Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
+      </p>
+    </section>
+
+    <section class="destination-section" id="nuestras-fotos" aria-labelledby="photos-title">
+      <h2 id="photos-title">Nuestras fotos juntos</h2>
+      <p>Un espacio para guardar esos momentos que siempre quiero recordar. Cada foto nuestra cuenta una historia que me encanta compartir contigo.</p>
+    </section>
+
+    <section class="heart-key-area" hidden aria-live="polite">
+      <button class="heart-key" type="button">🗝️ Llave a mi corazón</button>
+    </section>
+
+    <section class="heart-challenge" hidden aria-labelledby="heart-challenge-title">
+      <h2 id="heart-challenge-title">Una llave especial para ti</h2>
+      <p class="heart-instructions">Haz clic 5 veces en el corazón para descubrir nuestra historia.</p>
+      <button class="big-heart" type="button" aria-label="Corazón, haz clic 5 veces" aria-pressed="false">♥</button>
+      <p class="heart-progress" aria-live="polite">Clics: 0 de 5</p>
+    </section>
+
+    <section class="love-timeline" hidden aria-labelledby="timeline-title">
+      <h2 id="timeline-title">Nuestra historia, paso a paso</h2>
+      <ol class="timeline-list"></ol>
+      <p class="days-together" aria-live="polite"></p>
+      <section class="birthday-countdowns" aria-label="Cuenta regresiva para nuestros cumpleaños">
+        <article class="birthday-countdown" data-month="7" data-day="2">
+          <h3>Cumpleaños · 2 de agosto</h3>
+          <p></p>
+        </article>
+        <article class="birthday-countdown" data-month="10" data-day="27">
+          <h3>Cumpleaños · 27 de noviembre</h3>
+          <p></p>
+        </article>
+      </section>
+      <figure class="memory-slideshow" aria-label="Nuestros recuerdos">
+        <img src="foto-recuerdo-1.webp" alt="Nos damos la mano con cariño" class="is-active">
+        <img src="foto-recuerdo-2.webp" alt="Compartimos un abrazo">
+        <img src="foto-recuerdo-3.webp" alt="Un beso rodeado de corazones">
+        <figcaption></figcaption>
+      </figure>
+    </section>
+  </main>
+  <script>
+    const letterButton = document.querySelector(".letter-button");
+    const wheelSection = document.querySelector(".wheel-section");
+    const wheel = document.querySelector(".wheel");
+    const spinButton = document.querySelector(".spin-button");
+    const heartKeyArea = document.querySelector(".heart-key-area");
+    const heartKey = document.querySelector(".heart-key");
+    const heartChallenge = document.querySelector(".heart-challenge");
+    const bigHeart = document.querySelector(".big-heart");
+    const heartProgress = document.querySelector(".heart-progress");
+    const loveTimeline = document.querySelector(".love-timeline");
+    const timelineList = document.querySelector(".timeline-list");
+    const daysTogether = document.querySelector(".days-together");
+    const birthdayCountdowns = document.querySelectorAll(".birthday-countdown");
+    const memoryPhotos = document.querySelectorAll(".memory-slideshow img");
+    const musicToggle = document.querySelector(".music-toggle");
+    const wheelOptions = [
+      { label: "Saber cuánto te amo", section: "cuanto-te-amo" },
+      { label: "Nuestras fotos juntos", section: "nuestras-fotos" }
+    ];
+    let remainingOptions = [...wheelOptions];
+    let wheelRotation = 0;
+    let wheelLandingTimeout;
+    let memorySlideshowTimer;
+    let activeMemoryPhoto = 0;
+    let selectedOption = null;
+    let heartClicks = 0;
+    const wheelColors = ["#a83e59", "#60477e", "#bd5a70"];
+    const totalHeartClicks = 5;
+    const updateBirthdayCountdowns = () => {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+      birthdayCountdowns.forEach((countdown) => {
+        const month = Number(countdown.dataset.month);
+        const day = Number(countdown.dataset.day);
+        let nextBirthday = new Date(now.getFullYear(), month, day);
+
+        if (nextBirthday < today) {
+          nextBirthday = new Date(now.getFullYear() + 1, month, day);
+        }
+
+        const remainingMs = nextBirthday.getTime() - now.getTime();
+        const remainingSeconds = Math.max(0, Math.floor(remainingMs / 1000));
+        const days = Math.floor(remainingSeconds / 86400);
+        const hours = Math.floor((remainingSeconds % 86400) / 3600);
+        const minutes = Math.floor((remainingSeconds % 3600) / 60);
+        const seconds = remainingSeconds % 60;
+        const output = countdown.querySelector("p");
+
+        output.textContent = days === 0 && hours === 0 && minutes === 0 && seconds === 0
+          ? "¡Es hoy! Feliz cumpleaños. ♥"
+          : `Faltan ${days} días, ${hours} h, ${minutes} min y ${seconds} s`;
+      });
+    };
+
+    const startMemorySlideshow = () => {
+      if (memorySlideshowTimer || memoryPhotos.length < 2) return;
+
+      memorySlideshowTimer = window.setInterval(() => {
+        memoryPhotos[activeMemoryPhoto].classList.remove("is-active");
+        activeMemoryPhoto = (activeMemoryPhoto + 1) % memoryPhotos.length;
+        memoryPhotos[activeMemoryPhoto].classList.add("is-active");
+      }, 4500);
+    };
+
+    updateBirthdayCountdowns();
+    window.setInterval(updateBirthdayCountdowns, 1000);
+    const musicChords = [
+      [110, 220, 261.63, 329.63, 392],
+      [87.31, 174.61, 220, 261.63, 329.63],
+      [130.81, 196, 261.63, 329.63, 392],
+      [98, 196, 246.94, 293.66, 392]
+    ];
+    const musicMelody = [
+      659.25, 523.25, 440, 523.25,
+      523.25, 440, 349.23, 440,
+      587.33, 523.25, 392, 523.25,
+      587.33, 493.88, 392, 493.88
+    ];
+    let audioContext;
+    let musicGain;
+    let musicTimer;
+    let musicStep = 0;
+    let isMusicPlaying = false;
+
+    const playMusicNote = (frequency, startTime, duration, volume, type = "sine") => {
+      const oscillator = audioContext.createOscillator();
+      const noteGain = audioContext.createGain();
+      const attackEnd = startTime + Math.min(0.8, duration * 0.3);
+      const releaseStart = startTime + duration * 0.65;
+
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, startTime);
+      noteGain.gain.setValueAtTime(0.0001, startTime);
+      noteGain.gain.exponentialRampToValueAtTime(volume, attackEnd);
+      noteGain.gain.setValueAtTime(volume, releaseStart);
+      noteGain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+      oscillator.connect(noteGain);
+      noteGain.connect(musicGain);
+      oscillator.start(startTime);
+      oscillator.stop(startTime + duration + 0.02);
+    };
+
+    const playMusicStep = () => {
+      const step = musicStep % musicMelody.length;
+      if (step % 4 === 0) {
+        musicChords[Math.floor(step / 4)].forEach((frequency, index) => {
+          playMusicNote(frequency, audioContext.currentTime, 4.35, index === 0 ? 0.045 : 0.032);
+        });
+      }
+      playMusicNote(musicMelody[step], audioContext.currentTime, 1.55, 0.055);
+      musicStep = (musicStep + 1) % musicMelody.length;
+    };
+
+    const startBackgroundMusic = async () => {
+      if (isMusicPlaying) return;
+      try {
+        if (!audioContext) {
+          const AudioContextConstructor = window.AudioContext;
+          if (!AudioContextConstructor) {
+            musicToggle.textContent = "Audio no disponible";
+            musicToggle.disabled = true;
+            return;
+          }
+          audioContext = new AudioContextConstructor();
+          musicGain = audioContext.createGain();
+          musicGain.gain.value = 0.0001;
+          musicGain.connect(audioContext.destination);
+        }
+
+        await audioContext.resume();
+        musicGain.gain.cancelScheduledValues(audioContext.currentTime);
+        musicGain.gain.setTargetAtTime(0.32, audioContext.currentTime, 0.6);
+        musicStep = 0;
+        isMusicPlaying = true;
+        musicToggle.textContent = "♫ Música sonando";
+        musicToggle.setAttribute("aria-pressed", "true");
+        musicToggle.disabled = true;
+        playMusicStep();
+        musicTimer = window.setInterval(playMusicStep, 1100);
+      } catch (error) {
+        console.error("No se pudo iniciar la música de fondo.", error);
+        musicToggle.disabled = false;
+        musicToggle.textContent = "Reintentar música";
+      }
+    };
+
+    musicToggle.addEventListener("click", () => {
+      startBackgroundMusic();
+    });
+
+    const renderWheel = () => {
+      const sliceAngle = 360 / remainingOptions.length;
+      const slices = remainingOptions.map((option, index) => {
+        const start = index * sliceAngle;
+        const end = (index + 1) * sliceAngle;
+        return `${wheelColors[index % wheelColors.length]} ${start}deg ${end}deg`;
+      });
+
+      wheel.style.background = `conic-gradient(from ${-sliceAngle / 2}deg, ${slices.join(", ")})`;
+      wheel.setAttribute(
+        "aria-label",
+        `Opciones restantes: ${remainingOptions.map((option) => option.label).join(", ")}`
+      );
+      wheel.replaceChildren(...remainingOptions.map((option, index) => {
+        const label = document.createElement("span");
+        const labelText = document.createElement("span");
+        label.className = "wheel-label";
+        label.style.setProperty("--label-angle", `${index * sliceAngle}deg`);
+        labelText.className = "wheel-label-text";
+        labelText.textContent = option.label;
+        label.append(labelText);
+        return label;
+      }));
+    };
+
+    renderWheel();
+
+    letterButton.addEventListener("click", () => {
+      const isOpen = letterButton.classList.toggle("is-open");
+      letterButton.setAttribute("aria-expanded", String(isOpen));
+      letterButton.setAttribute("aria-label", isOpen ? "Cerrar la carta" : "Abrir la carta");
+    });
+
+    const finishSpin = () => {
+      if (!selectedOption) return;
+
+      const resultSection = document.getElementById(selectedOption.section);
+      document.querySelectorAll(".destination-section").forEach((section) => {
+        section.classList.toggle("is-visible", section === resultSection);
+      });
+      remainingOptions = remainingOptions.filter((option) => option !== selectedOption);
+
+      if (remainingOptions.length === 0) {
+        remainingOptions = [...wheelOptions];
+        heartKeyArea.hidden = false;
+      }
+
+      renderWheel();
+      wheelSection.classList.remove("is-spinning");
+      window.clearTimeout(wheelLandingTimeout);
+      wheelSection.classList.remove("is-landed");
+      void wheelSection.offsetWidth;
+      wheelSection.classList.add("is-landed");
+      wheelLandingTimeout = window.setTimeout(() => wheelSection.classList.remove("is-landed"), 700);
+      resultSection.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+      spinButton.disabled = false;
+      spinButton.textContent = "Girar otra vez";
+      selectedOption = null;
+    };
+
+    const startHeartTimeline = () => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const thisYearStart = new Date(today.getFullYear(), 5, 30);
+      const startDate = new Date(
+        today.getFullYear() - (today < thisYearStart ? 1 : 0),
+        5,
+        30
+      );
+      const elapsedDays = Math.floor(
+        (Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) -
+          Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) /
+          86400000
+      );
+      daysTogether.textContent = `Desde el 30 de junio, han pasado ${new Intl.NumberFormat("es").format(elapsedDays)} días desde que nos conocemos. ♥`;
+      const milestones = [startDate];
+
+      for (let month = 1; ; month += 1) {
+        const monthIndex = 5 + month;
+        const lastDayOfMonth = new Date(startDate.getFullYear(), monthIndex + 1, 0).getDate();
+        const date = new Date(startDate.getFullYear(), monthIndex, Math.min(30, lastDayOfMonth));
+        if (date >= today) break;
+        milestones.push(date);
+      }
+
+      if (milestones[milestones.length - 1].getTime() !== today.getTime()) {
+        milestones.push(today);
+      }
+
+      const dateFormatter = new Intl.DateTimeFormat("es", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+
+      timelineList.replaceChildren(...milestones.map((date) => {
+        const item = document.createElement("li");
+        const time = document.createElement("time");
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        time.dateTime = `${year}-${month}-${day}`;
+        time.textContent = dateFormatter.format(date);
+        item.append(time);
+        return item;
+      }));
+
+      heartChallenge.hidden = true;
+      loveTimeline.hidden = false;
+      startMemorySlideshow();
+      loveTimeline.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    heartKey.addEventListener("click", () => {
+      heartKeyArea.hidden = true;
+      heartChallenge.hidden = false;
+      heartChallenge.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    bigHeart.addEventListener("click", () => {
+      if (heartClicks >= totalHeartClicks) return;
+
+      heartClicks += 1;
+      heartProgress.textContent = `Clics: ${heartClicks} de ${totalHeartClicks}`;
+      bigHeart.style.setProperty("--heart-scale", String(1 + heartClicks * 0.1));
+
+      if (heartClicks === totalHeartClicks) {
+        bigHeart.setAttribute("aria-pressed", "true");
+        bigHeart.classList.add("is-exploding");
+        window.setTimeout(startHeartTimeline, 350);
+      }
+    });
+
+    spinButton.addEventListener("click", () => {
+      if (remainingOptions.length === 1) {
+        selectedOption = remainingOptions[0];
+        spinButton.disabled = true;
+        spinButton.textContent = "Mostrando la última opción...";
+        finishSpin();
+        return;
+      }
+
+      const selectedIndex = Math.floor(Math.random() * remainingOptions.length);
+      selectedOption = remainingOptions[selectedIndex];
+      window.clearTimeout(wheelLandingTimeout);
+      wheelSection.classList.remove("is-landed");
+      const sliceAngle = 360 / remainingOptions.length;
+      const targetAngle = -selectedIndex * sliceAngle;
+      const adjustment = (targetAngle - (wheelRotation % 360) + 360) % 360;
+      wheelRotation += 360 * 6 + adjustment;
+      spinButton.disabled = true;
+      spinButton.textContent = "Girando...";
+      wheelSection.classList.add("is-spinning");
+      wheel.style.setProperty("--wheel-rotation", `${wheelRotation}deg`);
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        window.setTimeout(() => {
+          wheel.style.transition = "none";
+          finishSpin();
+          requestAnimationFrame(() => {
+            wheel.style.removeProperty("transition");
+          });
+        }, 0);
+      }
+    });
+
+    wheel.addEventListener("transitionend", (event) => {
+      if (event.target !== wheel || event.propertyName !== "transform" || !spinButton.disabled) return;
+      finishSpin();
+    });
+  </script>
+</body>
+</html>
