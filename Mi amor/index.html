@@ -792,7 +792,7 @@
       <p class="message">
         Para mi pinchecha.
       </p>
-      <p class="music-hint" hidden aria-live="polite">Si no escuchas la música, toca cualquier parte de la página. ♥</p>
+      <p class="music-hint" hidden aria-live="polite">Si no empieza sola, toca «Iniciar música» para escucharla. ♥</p>
 
       <p class="letter-prompt">Haz clic en el sobre para abrir tu carta</p>
       <button class="letter-button" type="button" aria-expanded="false" aria-label="Abrir la carta">
@@ -976,6 +976,7 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     let musicStep = 0;
     let isMusicPlaying = false;
     let isMusicStarting = false;
+    let musicPausedByUser = false;
 
     const playMusicNote = (frequency, startTime, duration, volume, type = "sine") => {
       const oscillator = audioContext.createOscillator();
@@ -1006,8 +1007,9 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       musicStep = (musicStep + 1) % musicMelody.length;
     };
 
-    const startBackgroundMusic = async () => {
-      if (isMusicStarting || (isMusicPlaying && audioContext?.state === "running")) return;
+    const startBackgroundMusic = async (fromUserGesture = false) => {
+      if ((isMusicStarting && !fromUserGesture) ||
+          (isMusicPlaying && audioContext?.state === "running")) return;
       isMusicStarting = true;
       try {
         if (!audioContext) {
@@ -1035,6 +1037,7 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         musicGain.gain.setTargetAtTime(0.8, audioContext.currentTime, 0.6);
         musicStep = 0;
         isMusicPlaying = true;
+        musicPausedByUser = false;
         musicHint.hidden = true;
         musicToggle.textContent = "Ⅱ Pausar música";
         musicToggle.setAttribute("aria-pressed", "true");
@@ -1043,6 +1046,8 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       } catch (error) {
         console.error("No se pudo iniciar la música de fondo.", error);
         musicHint.hidden = false;
+        musicToggle.textContent = "♫ Reintentar música";
+        musicToggle.setAttribute("aria-pressed", "false");
       } finally {
         isMusicStarting = false;
       }
@@ -1055,19 +1060,18 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       musicGain.gain.cancelScheduledValues(audioContext.currentTime);
       musicGain.gain.setTargetAtTime(0.0001, audioContext.currentTime, 0.12);
       isMusicPlaying = false;
+      musicPausedByUser = true;
       musicToggle.textContent = "♫ Reanudar música";
       musicToggle.setAttribute("aria-pressed", "false");
     };
 
-    musicToggle.addEventListener("pointerdown", (event) => event.stopPropagation());
-    musicToggle.addEventListener("keydown", (event) => event.stopPropagation());
     musicToggle.addEventListener("click", () => {
       if (isMusicPlaying) {
         pauseBackgroundMusic();
         return;
       }
 
-      startBackgroundMusic();
+      startBackgroundMusic(true);
     });
 
     window.addEventListener("load", () => {
@@ -1075,11 +1079,10 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         if (!isMusicPlaying) musicHint.hidden = false;
       }, 1000);
     }, { once: true });
-    window.addEventListener("pointerdown", startBackgroundMusic);
-    window.addEventListener("keydown", startBackgroundMusic);
     window.addEventListener("load", startBackgroundMusic, { once: true });
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible" && audioContext?.state !== "running") {
+      if (document.visibilityState === "visible" && !musicPausedByUser &&
+          audioContext?.state !== "running") {
         startBackgroundMusic();
       }
     });
