@@ -102,9 +102,9 @@
       position: fixed;
       right: max(16px, env(safe-area-inset-right));
       bottom: max(16px, env(safe-area-inset-bottom));
-      z-index: 10;
-      min-height: 46px;
-      padding: 11px 17px;
+      z-index: 1000;
+      min-height: 52px;
+      padding: 12px 18px;
       color: #49283b;
       background: rgb(255 247 249 / 94%);
       border: 1px solid rgb(255 255 255 / 90%);
@@ -113,6 +113,8 @@
       cursor: pointer;
       font: 700 .95rem "Segoe UI", sans-serif;
       backdrop-filter: blur(8px);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .music-toggle:focus-visible {
@@ -629,6 +631,104 @@
       text-shadow: 0 1px 3px rgb(0 0 0 / 65%);
     }
 
+    .red-thread-story {
+      width: min(100%, 900px);
+      margin: 48px auto 0;
+    }
+
+    .red-thread-story h3 {
+      margin: 0;
+      color: var(--rose);
+      font-size: clamp(1.45rem, 4vw, 2rem);
+      font-style: italic;
+      font-weight: 400;
+      text-shadow: var(--text-shadow);
+    }
+
+    .red-thread-story > p {
+      max-width: 560px;
+      margin: 10px auto 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      text-shadow: var(--text-shadow);
+    }
+
+    .red-thread-gallery {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(16px, 4vw, 40px);
+      margin: 28px auto 0;
+      isolation: isolate;
+    }
+
+    .red-thread-gallery figure {
+      margin: 0;
+      overflow: hidden;
+      background: #fff8f4;
+      border: 6px solid rgb(255 255 255 / 88%);
+      border-radius: 20px;
+      box-shadow: 0 10px 28px rgb(75 39 61 / 20%);
+    }
+
+    .red-thread-gallery img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+    }
+
+    .red-thread-overlay {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .red-thread-overlay path {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .red-thread-shadow {
+      stroke: rgb(82 16 31 / 34%);
+      stroke-width: 12;
+    }
+
+    .red-thread-line {
+      stroke: #c51e3a;
+      stroke-width: 7;
+      filter: drop-shadow(0 1px 2px rgb(76 14 29 / 55%));
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: thread-appears 2.8s 0.3s ease-out forwards;
+    }
+
+    .red-thread-highlight {
+      stroke: rgb(255 193 197 / 82%);
+      stroke-width: 2;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: thread-appears 2.8s 0.3s ease-out forwards;
+    }
+
+    .red-thread-desktop {
+      display: block;
+    }
+
+    .red-thread-mobile {
+      display: none;
+    }
+
+    @keyframes thread-appears {
+      to { stroke-dashoffset: 0; }
+    }
+
     .destination-section {
       min-height: 260px;
       display: grid;
@@ -740,7 +840,32 @@
 
       .music-toggle {
         right: max(12px, env(safe-area-inset-right));
-        bottom: max(12px, env(safe-area-inset-bottom));
+        bottom: max(20px, env(safe-area-inset-bottom));
+        min-height: 56px;
+        padding: 14px 20px;
+      }
+
+      .red-thread-story {
+        margin-top: 40px;
+      }
+
+      .red-thread-gallery {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+        width: min(100%, 360px);
+      }
+
+      .red-thread-gallery figure {
+        border-width: 5px;
+        border-radius: 18px;
+      }
+
+      .red-thread-desktop {
+        display: none;
+      }
+
+      .red-thread-mobile {
+        display: block;
       }
 
     }
@@ -777,6 +902,12 @@
 
       .memory-slideshow img {
         transition: none;
+      }
+
+      .red-thread-line,
+      .red-thread-highlight {
+        animation: none;
+        stroke-dashoffset: 0;
       }
     }
   </style>
@@ -887,6 +1018,28 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         <img src="foto-recuerdo-3.webp" alt="Un beso rodeado de corazones">
         <figcaption></figcaption>
       </figure>
+      <div class="red-thread-story">
+        <h3>El hilo rojo del destino</h3>
+        <p>Dicen que un hilo rojo invisible une a las personas destinadas a encontrarse. Tal vez el nuestro ya nos unía desde pequeños. ♥</p>
+        <div class="red-thread-gallery">
+          <figure>
+            <img src="hilo-recuerdo-1.png" alt="Un recuerdo de nuestra infancia">
+          </figure>
+          <figure>
+            <img src="hilo-recuerdo-2.png" alt="Otro recuerdo de nuestra infancia">
+          </figure>
+          <svg class="red-thread-overlay red-thread-desktop" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+            <path class="red-thread-shadow" pathLength="1" d="M 245 570 C 325 608, 430 638, 500 575 S 543 292, 625 245"></path>
+            <path class="red-thread-line" pathLength="1" d="M 245 570 C 325 608, 430 638, 500 575 S 543 292, 625 245"></path>
+            <path class="red-thread-highlight" pathLength="1" d="M 245 570 C 325 608, 430 638, 500 575 S 543 292, 625 245"></path>
+          </svg>
+          <svg class="red-thread-overlay red-thread-mobile" viewBox="0 0 400 1000" preserveAspectRatio="none" aria-hidden="true">
+            <path class="red-thread-shadow" pathLength="1" d="M 200 470 C 115 470, 5 470, 20 610 C 25 720, 25 780, 78 690"></path>
+            <path class="red-thread-line" pathLength="1" d="M 200 470 C 115 470, 5 470, 20 610 C 25 720, 25 780, 78 690"></path>
+            <path class="red-thread-highlight" pathLength="1" d="M 200 470 C 115 470, 5 470, 20 610 C 25 720, 25 780, 78 690"></path>
+          </svg>
+        </div>
+      </div>
     </section>
   </main>
   <script>
