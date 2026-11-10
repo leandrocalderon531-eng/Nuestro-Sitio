@@ -725,6 +725,28 @@
       display: none;
     }
 
+    .red-thread-audio {
+      width: min(100%, 560px);
+      margin: 28px auto 0;
+      padding: 18px;
+      background: rgb(255 255 255 / 62%);
+      border: 1px solid rgb(255 255 255 / 82%);
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgb(75 39 61 / 12%);
+    }
+
+    .red-thread-audio h4 {
+      margin: 0 0 12px;
+      color: var(--rose);
+      font: 700 1rem "Segoe UI", sans-serif;
+      text-shadow: var(--text-shadow);
+    }
+
+    .red-thread-audio audio {
+      display: block;
+      width: 100%;
+    }
+
     @keyframes thread-appears {
       to { stroke-dashoffset: 0; }
     }
@@ -987,7 +1009,7 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       <p>Un espacio para guardar esos momentos que siempre quiero recordar. Cada foto nuestra cuenta una historia que me encanta compartir contigo.</p>
     </section>
 
-    <section class="heart-key-area" hidden aria-live="polite">
+    <section class="heart-key-area" aria-live="polite">
       <button class="heart-key" type="button">🗝️ Llave a mi corazón</button>
     </section>
 
@@ -1039,6 +1061,13 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
             <path class="red-thread-highlight" pathLength="1" d="M 200 470 C 115 470, 5 470, 20 610 C 25 720, 25 780, 78 690"></path>
           </svg>
         </div>
+          <section class="red-thread-audio" aria-labelledby="red-thread-audio-title">
+            <h4 id="red-thread-audio-title">Un audio para vos ♥</h4>
+            <audio controls preload="metadata">
+              <source src="audio-hilo-rojo.mp3" type="audio/mpeg">
+              Tu navegador no puede reproducir este audio.
+            </audio>
+          </section>
       </div>
     </section>
   </main>
@@ -1284,7 +1313,6 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
 
       if (remainingOptions.length === 0) {
         remainingOptions = [...wheelOptions];
-        heartKeyArea.hidden = false;
       }
 
       renderWheel();
