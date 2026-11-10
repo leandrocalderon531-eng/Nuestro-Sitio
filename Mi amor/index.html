@@ -98,6 +98,17 @@
       text-shadow: var(--text-shadow);
     }
 
+    .music-hint {
+      margin: 10px auto 0;
+      color: var(--lilac);
+      font: 0.88rem/1.45 "Segoe UI", sans-serif;
+      text-shadow: var(--text-shadow);
+    }
+
+    .music-hint[hidden] {
+      display: none;
+    }
+
     .letter-prompt {
       margin: 24px 0 0;
       color: var(--lilac);
@@ -753,6 +764,7 @@
       <p class="message">
         Para mi pinchecha.
       </p>
+      <p class="music-hint" hidden aria-live="polite">Si no escuchas la música, toca cualquier parte de la página. ♥</p>
 
       <p class="letter-prompt">Haz clic en el sobre para abrir tu carta</p>
       <button class="letter-button" type="button" aria-expanded="false" aria-label="Abrir la carta">
@@ -864,6 +876,7 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     const daysTogether = document.querySelector(".days-together");
     const birthdayCountdowns = document.querySelectorAll(".birthday-countdown");
     const memoryPhotos = document.querySelectorAll(".memory-slideshow img");
+    const musicHint = document.querySelector(".music-hint");
     const wheelOptions = [
       { label: "Saber cuánto te amo", section: "cuanto-te-amo" },
       { label: "Nuestras fotos juntos", section: "nuestras-fotos" }
@@ -957,19 +970,19 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       const step = musicStep % musicMelody.length;
       if (step % 4 === 0) {
         musicChords[Math.floor(step / 4)].forEach((frequency, index) => {
-          playMusicNote(frequency, audioContext.currentTime, 4.35, index === 0 ? 0.045 : 0.032);
+          playMusicNote(frequency, audioContext.currentTime, 4.35, index === 0 ? 0.12 : 0.075, "triangle");
         });
       }
-      playMusicNote(musicMelody[step], audioContext.currentTime, 1.55, 0.055);
+      playMusicNote(musicMelody[step], audioContext.currentTime, 1.55, 0.16, "sine");
       musicStep = (musicStep + 1) % musicMelody.length;
     };
 
     const startBackgroundMusic = async () => {
-      if (isMusicPlaying || isMusicStarting) return;
+      if (isMusicStarting || (isMusicPlaying && audioContext?.state === "running")) return;
       isMusicStarting = true;
       try {
         if (!audioContext) {
-          const AudioContextConstructor = window.AudioContext;
+          const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
           if (!AudioContextConstructor) {
             throw new Error("Este navegador no admite Web Audio.");
           }
@@ -980,25 +993,43 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         }
 
         await audioContext.resume();
-        if (audioContext.state !== "running") return;
+        if (audioContext.state !== "running") {
+          musicHint.hidden = false;
+          return;
+        }
+        if (isMusicPlaying) {
+          musicHint.hidden = true;
+          return;
+        }
+
         musicGain.gain.cancelScheduledValues(audioContext.currentTime);
-        musicGain.gain.setTargetAtTime(0.32, audioContext.currentTime, 0.6);
+        musicGain.gain.setTargetAtTime(0.8, audioContext.currentTime, 0.6);
         musicStep = 0;
         isMusicPlaying = true;
-        window.removeEventListener("pointerdown", startBackgroundMusic);
-        window.removeEventListener("keydown", startBackgroundMusic);
+        musicHint.hidden = true;
         playMusicStep();
         musicTimer = window.setInterval(playMusicStep, 1100);
       } catch (error) {
         console.error("No se pudo iniciar la música de fondo.", error);
+        musicHint.hidden = false;
       } finally {
         isMusicStarting = false;
       }
     };
 
+    window.addEventListener("load", () => {
+      window.setTimeout(() => {
+        if (!isMusicPlaying) musicHint.hidden = false;
+      }, 1000);
+    }, { once: true });
     window.addEventListener("pointerdown", startBackgroundMusic);
     window.addEventListener("keydown", startBackgroundMusic);
     window.addEventListener("load", startBackgroundMusic, { once: true });
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && audioContext?.state !== "running") {
+        startBackgroundMusic();
+      }
+    });
 
     const renderWheel = () => {
       const sliceAngle = 360 / remainingOptions.length;
