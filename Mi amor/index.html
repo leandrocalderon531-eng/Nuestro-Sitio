@@ -8,12 +8,12 @@
   <style>
     :root {
       color-scheme: light;
-      --ink: #3d2933;
-      --muted: #56434c;
-      --rose: #b83255;
-      --lilac: #60427c;
+      --ink: #321c29;
+      --muted: #382631;
+      --rose: #8f1d42;
+      --lilac: #442354;
       --paper: #f6a8c7;
-      --text-shadow: 0 1px 3px rgb(255 255 255 / 90%);
+      --text-shadow: none;
     }
 
     * {
@@ -21,14 +21,26 @@
     }
 
     body {
+      position: relative;
+      isolation: isolate;
+      overflow-x: clip;
       min-width: 0;
       min-height: 100vh;
       margin: 0;
       color: var(--ink);
-      background: linear-gradient(120deg, #f3a5c4, #a9d8a4, #f6df83, #f3a5c4);
-      background-size: 300% 300%;
-      animation: color-shift 18s ease-in-out infinite;
+      background: #e63f78;
       font-family: Georgia, "Times New Roman", serif;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(120deg, #e63f78 0%, #72b86b 48%, #d8bd45 100%);
+      background-size: 300% 300%;
+      content: "";
+      pointer-events: none;
+      animation: color-shift 18s ease-in-out infinite;
     }
 
     @keyframes color-shift {
@@ -72,20 +84,21 @@
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      text-shadow: var(--text-shadow);
+      text-shadow: none;
     }
 
     h1 {
       margin: 0;
+      color: var(--ink);
       font-size: clamp(2.6rem, 8vw, 5rem);
       font-weight: 400;
       letter-spacing: -0.055em;
       line-height: 1.05;
-      text-shadow: var(--text-shadow);
+      text-shadow: none;
     }
 
     h1 span {
-      color: var(--rose);
+      color: #861638;
       font-style: italic;
     }
 
@@ -95,7 +108,7 @@
       color: var(--muted);
       font-size: clamp(1.05rem, 2.5vw, 1.25rem);
       line-height: 1.75;
-      text-shadow: var(--text-shadow);
+      text-shadow: none;
     }
 
     .music-toggle {
@@ -112,7 +125,6 @@
       box-shadow: 0 5px 18px rgb(75 39 61 / 20%);
       cursor: pointer;
       font: 700 .95rem "Segoe UI", sans-serif;
-      backdrop-filter: blur(8px);
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
@@ -126,7 +138,7 @@
       margin: 10px auto 0;
       color: var(--lilac);
       font: 0.88rem/1.45 "Segoe UI", sans-serif;
-      text-shadow: var(--text-shadow);
+      text-shadow: none;
     }
 
     .music-hint[hidden] {
@@ -138,7 +150,7 @@
       color: var(--lilac);
       font-size: 0.95rem;
       font-style: italic;
-      text-shadow: var(--text-shadow);
+      text-shadow: none;
     }
 
     .letter-button {
@@ -271,14 +283,14 @@
       color: var(--ink);
       font-size: clamp(1.8rem, 5vw, 2.8rem);
       font-weight: 400;
-      text-shadow: 0 1px 3px rgb(255 255 255 / 90%);
+      text-shadow: none;
     }
 
     .wheel-section > p,
     .destination-section > p {
       color: var(--muted);
       line-height: 1.7;
-      text-shadow: var(--text-shadow);
+      text-shadow: none;
     }
 
     .wheel-pointer {
@@ -633,6 +645,7 @@
 
     .red-thread-story {
       width: min(100%, 900px);
+      min-width: 0;
       margin: 48px auto 0;
     }
 
@@ -726,10 +739,11 @@
     }
 
     .red-thread-audio {
-      width: min(100%, 560px);
+      width: min(100%, 900px);
+      min-width: 0;
       margin: 28px auto 0;
       padding: 18px;
-      background: rgb(255 255 255 / 62%);
+      background: #fffaf8;
       border: 1px solid rgb(255 255 255 / 82%);
       border-radius: 18px;
       box-shadow: 0 4px 14px rgb(75 39 61 / 12%);
@@ -737,9 +751,9 @@
 
     .red-thread-audio h4 {
       margin: 0 0 12px;
-      color: var(--rose);
-      font: 700 1rem "Segoe UI", sans-serif;
-      text-shadow: var(--text-shadow);
+      color: #81213f;
+      font: 700 1.2rem/1.4 "Segoe UI", sans-serif;
+      text-shadow: none;
     }
 
     .red-thread-audio audio {
@@ -777,6 +791,233 @@
       font: 0.88rem/1.45 "Segoe UI", sans-serif;
     }
 
+    .personal-photo-options {
+      display: grid;
+      width: min(100%, 900px);
+      min-width: 0;
+      gap: 12px;
+      margin: 20px auto 0;
+    }
+
+    .personal-photo-option {
+      overflow: hidden;
+      background: #fffaf8;
+      border: 1px solid rgb(255 255 255 / 82%);
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgb(75 39 61 / 12%);
+    }
+
+    .personal-photo-option summary {
+      padding: 16px 20px;
+      color: #81213f;
+      cursor: pointer;
+      font: 700 1.1rem "Segoe UI", sans-serif;
+      text-align: left;
+    }
+
+    .personal-photo-option summary:focus-visible {
+      outline: 3px solid var(--lilac);
+      outline-offset: -3px;
+    }
+
+    .personal-photo-space {
+      margin: 0 18px 18px;
+    }
+
+    .personal-photo-carousel {
+      position: relative;
+    }
+
+    .personal-photo-gallery {
+      display: flex;
+      width: 100%;
+      min-width: 0;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 4px 2px 14px;
+      overscroll-behavior-x: contain;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-color: #b96c8b rgb(255 255 255 / 60%);
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x pan-y;
+    }
+
+    .personal-photo-gallery:focus-visible {
+      outline: 3px solid var(--lilac);
+      outline-offset: 3px;
+    }
+
+    .personal-photo-slot {
+      position: relative;
+      display: grid;
+      flex: 0 0 calc((100% - 32px) / 3);
+      aspect-ratio: 3 / 4;
+      min-width: 0;
+      place-items: center;
+      overflow: hidden;
+      color: #3d2933;
+      background: #fff8f4;
+      border: 2px dashed #765179;
+      border-radius: 14px;
+      font: 700 1.05rem "Segoe UI", sans-serif;
+      scroll-snap-align: start;
+    }
+
+    .personal-photo-slot.has-photo::before,
+    .personal-photo-slot.has-photo span {
+      display: none;
+    }
+
+    .personal-photo-slot img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .personal-photo-slot::before {
+      content: "+";
+      position: absolute;
+      top: 34%;
+      color: #b83255;
+      font-size: 2.2rem;
+      font-weight: 400;
+    }
+
+    .personal-photo-slot span {
+      margin-top: 40px;
+    }
+
+    .personal-carousel-control {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      padding: 0;
+      color: #fff;
+      background: rgb(48 38 49 / 88%);
+      border: 1px solid rgb(255 255 255 / 85%);
+      border-radius: 50%;
+      box-shadow: 0 3px 12px rgb(0 0 0 / 22%);
+      cursor: pointer;
+      font: 700 1.45rem/1 "Segoe UI", sans-serif;
+      transform: translateY(-50%);
+    }
+
+    .personal-carousel-control:hover {
+      background: #81213f;
+    }
+
+    .personal-carousel-control:focus-visible {
+      outline: 3px solid var(--lilac);
+      outline-offset: 3px;
+    }
+
+    .personal-carousel-previous {
+      left: -12px;
+    }
+
+    .personal-carousel-next {
+      right: -12px;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        padding: 28px 16px 52px;
+      }
+
+      .card {
+        padding: clamp(20px, 5vw, 36px) 12px;
+      }
+
+      .red-thread-audio {
+        padding: 16px;
+      }
+
+      .personal-photo-gallery {
+        gap: 12px;
+        padding: 4px 2px 14px;
+        scroll-padding-inline: 2px;
+      }
+
+      .personal-photo-slot {
+        flex: 0 0 min(82vw, 320px);
+        max-width: 100%;
+      }
+
+      .personal-photo-slot img {
+        object-fit: contain;
+      }
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 22px 10px 44px;
+      }
+
+      .personal-photo-options {
+        gap: 10px;
+        width: 100%;
+      }
+
+      .personal-photo-option summary {
+        min-height: 48px;
+        padding: 14px 16px;
+        font-size: 1rem;
+      }
+
+      .personal-photo-gallery {
+        gap: 12px;
+      }
+
+      .personal-photo-slot {
+        flex-basis: min(82vw, 320px);
+        aspect-ratio: 3 / 4;
+        border-radius: 12px;
+        font-size: 1rem;
+      }
+
+      .personal-photo-space {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+
+      .personal-carousel-control {
+        width: 44px;
+        height: 44px;
+        top: auto;
+        bottom: 24px;
+        transform: none;
+      }
+
+      .personal-carousel-previous {
+        left: 4px;
+      }
+
+      .personal-carousel-next {
+        right: 4px;
+      }
+
+      .red-thread-audio h4 {
+        font-size: 1.05rem;
+      }
+
+      .red-thread-audio-status {
+        font-size: 0.82rem;
+      }
+
+      .letter-button {
+        width: min(100%, 400px);
+      }
+    }
+
     @keyframes thread-appears {
       to { stroke-dashoffset: 0; }
     }
@@ -801,15 +1042,15 @@
 
     @media (max-width: 480px) {
       main {
-        padding: 24px 12px 48px;
+        padding: 22px 10px 44px;
       }
 
       .card {
-        padding: 24px 8px;
+        padding: 22px 10px;
       }
 
       h1 {
-        font-size: clamp(2.1rem, 10vw, 2.8rem);
+        font-size: clamp(2rem, 9.5vw, 2.8rem);
       }
 
       .eyebrow {
@@ -818,6 +1059,7 @@
       }
 
       .letter-button {
+        width: min(100%, 400px);
         height: 360px;
       }
 
@@ -840,6 +1082,11 @@
         max-width: 32ch;
         margin-right: auto;
         margin-left: auto;
+      }
+
+      .wheel-section,
+      .destination-section {
+        padding: 36px 12px;
       }
 
       .wheel {
@@ -894,7 +1141,9 @@
         right: max(12px, env(safe-area-inset-right));
         bottom: max(20px, env(safe-area-inset-bottom));
         min-height: 56px;
-        padding: 14px 20px;
+        max-width: calc(100vw - 24px);
+        padding: 14px 16px;
+        font-size: 0.9rem;
       }
 
       .red-thread-story {
@@ -948,8 +1197,12 @@
       }
 
       body {
+        background: linear-gradient(120deg, #e63f78 0%, #72b86b 48%, #d8bd45 100%);
+      }
+
+      body::before {
+        background-position: 50% 50%;
         animation: none;
-        background: linear-gradient(120deg, #f3a5c4, #a9d8a4, #f6df83);
       }
 
       .memory-slideshow img {
@@ -1065,9 +1318,9 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         </article>
       </section>
       <figure class="memory-slideshow" aria-label="Nuestros recuerdos">
-        <img src="foto-recuerdo-1.webp" alt="Nos damos la mano con cariño" class="is-active">
-        <img src="foto-recuerdo-2.webp" alt="Compartimos un abrazo">
-        <img src="foto-recuerdo-3.webp" alt="Un beso rodeado de corazones">
+        <img src="foto-recuerdo-1.webp" alt="Nos damos la mano con cariño" class="is-active" loading="lazy" decoding="async">
+        <img src="foto-recuerdo-2.webp" alt="Compartimos un abrazo" loading="lazy" decoding="async">
+        <img src="foto-recuerdo-3.webp" alt="Un beso rodeado de corazones" loading="lazy" decoding="async">
         <figcaption></figcaption>
       </figure>
       <div class="red-thread-story">
@@ -1075,10 +1328,10 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         <p>Dicen que un hilo rojo invisible une a las personas destinadas a encontrarse. Tal vez el nuestro ya nos unía desde pequeños. ♥</p>
         <div class="red-thread-gallery">
           <figure>
-            <img src="hilo-recuerdo-1.png" alt="Un recuerdo de nuestra infancia">
+            <img src="hilo-recuerdo-1.png" alt="Un recuerdo de nuestra infancia" loading="lazy" decoding="async">
           </figure>
           <figure>
-            <img src="hilo-recuerdo-2.png" alt="Otro recuerdo de nuestra infancia">
+            <img src="hilo-recuerdo-2.png" alt="Otro recuerdo de nuestra infancia" loading="lazy" decoding="async">
           </figure>
           <svg class="red-thread-overlay red-thread-desktop" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
             <path class="red-thread-shadow" pathLength="1" d="M 245 570 C 325 608, 430 638, 500 575 S 543 292, 625 245"></path>
@@ -1101,6 +1354,42 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
           </audio>
           <p class="red-thread-audio-status" aria-live="polite">Toca «Escuchar audio» para oírlo. ♥</p>
         </section>
+        <section class="personal-photo-options" aria-label="Apartados de fotos personales">
+          <details class="personal-photo-option">
+            <summary>Leandro</summary>
+            <div class="personal-photo-space">
+              <div class="personal-photo-carousel">
+                <div class="personal-photo-gallery" aria-label="Espacios para agregar varias fotos de Leandro" tabindex="0">
+                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-1.png" alt="Leandro al aire libre" loading="lazy" decoding="async"></div>
+                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-2.png" alt="Leandro con una camiseta gris" loading="lazy" decoding="async"></div>
+                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-3.png" alt="Leandro con gafas de sol" loading="lazy" decoding="async"></div>
+                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-4.png" alt="Leandro en una foto en blanco y negro" loading="lazy" decoding="async"></div>
+                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-5.png" alt="Leandro con camisa clara" loading="lazy" decoding="async"></div>
+                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-6.png" alt="Leandro con camiseta negra en una foto en blanco y negro" loading="lazy" decoding="async"></div>
+                </div>
+                <button class="personal-carousel-control personal-carousel-previous" type="button" aria-label="Ver fotos anteriores de Leandro" data-carousel-direction="-1">‹</button>
+                <button class="personal-carousel-control personal-carousel-next" type="button" aria-label="Ver más fotos de Leandro" data-carousel-direction="1">›</button>
+              </div>
+            </div>
+          </details>
+          <details class="personal-photo-option">
+            <summary>Elizabeth</summary>
+            <div class="personal-photo-space">
+              <div class="personal-photo-carousel">
+                <div class="personal-photo-gallery" aria-label="Espacios para agregar varias fotos de Elizabeth" tabindex="0">
+                  <div class="personal-photo-slot" aria-label="Espacio para la foto 1"><span>Foto 1</span></div>
+                  <div class="personal-photo-slot" aria-label="Espacio para la foto 2"><span>Foto 2</span></div>
+                  <div class="personal-photo-slot" aria-label="Espacio para la foto 3"><span>Foto 3</span></div>
+                  <div class="personal-photo-slot" aria-label="Espacio para la foto 4"><span>Foto 4</span></div>
+                  <div class="personal-photo-slot" aria-label="Espacio para la foto 5"><span>Foto 5</span></div>
+                  <div class="personal-photo-slot" aria-label="Espacio para la foto 6"><span>Foto 6</span></div>
+                </div>
+                <button class="personal-carousel-control personal-carousel-previous" type="button" aria-label="Ver fotos anteriores de Elizabeth" data-carousel-direction="-1">‹</button>
+                <button class="personal-carousel-control personal-carousel-next" type="button" aria-label="Ver más fotos de Elizabeth" data-carousel-direction="1">›</button>
+              </div>
+            </div>
+          </details>
+        </section>
       </div>
     </section>
   </main>
@@ -1119,6 +1408,7 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     const daysTogether = document.querySelector(".days-together");
     const birthdayCountdowns = document.querySelectorAll(".birthday-countdown");
     const memoryPhotos = document.querySelectorAll(".memory-slideshow img");
+    const personalCarouselControls = document.querySelectorAll(".personal-carousel-control");
     const redThreadAudio = document.querySelector(".red-thread-audio audio");
     const redThreadPlay = document.querySelector(".red-thread-play");
     const redThreadAudioStatus = document.querySelector(".red-thread-audio-status");
@@ -1173,6 +1463,21 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         memoryPhotos[activeMemoryPhoto].classList.add("is-active");
       }, 4500);
     };
+
+    personalCarouselControls.forEach((control) => {
+      control.addEventListener("click", () => {
+        const carousel = control.closest(".personal-photo-carousel");
+        const gallery = carousel.querySelector(".personal-photo-gallery");
+        const firstPhoto = gallery.querySelector(".personal-photo-slot");
+        const gap = Number.parseFloat(window.getComputedStyle(gallery).columnGap) || 0;
+        const direction = Number(control.dataset.carouselDirection);
+
+        gallery.scrollBy({
+          left: direction * (firstPhoto.getBoundingClientRect().width + gap),
+          behavior: "smooth"
+        });
+      });
+    });
 
     updateBirthdayCountdowns();
     window.setInterval(updateBirthdayCountdowns, 1000);
