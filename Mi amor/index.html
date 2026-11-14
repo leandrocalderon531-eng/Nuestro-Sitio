@@ -200,7 +200,7 @@
       align-items: center;
       justify-content: center;
       padding: 24px clamp(18px, 5vw, 36px);
-      background: #302631;
+      background: #fffaf8;
       border: 1px solid #51404f;
       border-radius: 5px;
       box-shadow: 0 5px 18px rgb(87 57 79 / 10%);
@@ -218,7 +218,7 @@
     }
 
     .letter-paper span {
-      color: var(--muted);
+      color: var(--ink);
       font-size: 0.96rem;
       line-height: 1.6;
     }
@@ -1225,7 +1225,7 @@
       <p class="message">
         Para mi pinchecha.
       </p>
-      <p class="music-hint" hidden aria-live="polite">Si no empieza sola, toca «Iniciar música» para escucharla. ♥</p>
+      <p class="music-hint" hidden aria-live="polite">Toca «Iniciar música». Si no se escucha, sube el volumen multimedia del teléfono y comprueba que no esté en silencio. ♥</p>
 
       <p class="letter-prompt">Haz clic en el sobre para abrir tu carta</p>
       <button class="letter-button" type="button" aria-expanded="false" aria-label="Abrir la carta">
@@ -1239,6 +1239,43 @@
           <span class="envelope-seal">♥</span>
         </span>
       </button>
+    </section>
+
+    <section class="personal-photo-options" aria-label="Apartados de fotos personales">
+      <details class="personal-photo-option">
+        <summary>Leandro</summary>
+        <div class="personal-photo-space">
+          <div class="personal-photo-carousel">
+            <div class="personal-photo-gallery" aria-label="Espacios para agregar varias fotos de Leandro" tabindex="0">
+              <div class="personal-photo-slot has-photo"><img src="leandro-foto-1.png" alt="Leandro al aire libre" loading="lazy" decoding="async"></div>
+              <div class="personal-photo-slot has-photo"><img src="leandro-foto-2.png" alt="Leandro con una camiseta gris" loading="lazy" decoding="async"></div>
+              <div class="personal-photo-slot has-photo"><img src="leandro-foto-3.png" alt="Leandro con gafas de sol" loading="lazy" decoding="async"></div>
+              <div class="personal-photo-slot has-photo"><img src="leandro-foto-4.png" alt="Leandro en una foto en blanco y negro" loading="lazy" decoding="async"></div>
+              <div class="personal-photo-slot has-photo"><img src="leandro-foto-5.png" alt="Leandro con camisa clara" loading="lazy" decoding="async"></div>
+              <div class="personal-photo-slot has-photo"><img src="leandro-foto-6.png" alt="Leandro con camiseta negra en una foto en blanco y negro" loading="lazy" decoding="async"></div>
+            </div>
+            <button class="personal-carousel-control personal-carousel-previous" type="button" aria-label="Ver fotos anteriores de Leandro" data-carousel-direction="-1">‹</button>
+            <button class="personal-carousel-control personal-carousel-next" type="button" aria-label="Ver más fotos de Leandro" data-carousel-direction="1">›</button>
+          </div>
+        </div>
+      </details>
+      <details class="personal-photo-option">
+        <summary>Elizabeth</summary>
+        <div class="personal-photo-space">
+          <div class="personal-photo-carousel">
+            <div class="personal-photo-gallery" aria-label="Espacios para agregar varias fotos de Elizabeth" tabindex="0">
+              <div class="personal-photo-slot" aria-label="Espacio para la foto 1"><span>Foto 1</span></div>
+              <div class="personal-photo-slot" aria-label="Espacio para la foto 2"><span>Foto 2</span></div>
+              <div class="personal-photo-slot" aria-label="Espacio para la foto 3"><span>Foto 3</span></div>
+              <div class="personal-photo-slot" aria-label="Espacio para la foto 4"><span>Foto 4</span></div>
+              <div class="personal-photo-slot" aria-label="Espacio para la foto 5"><span>Foto 5</span></div>
+              <div class="personal-photo-slot" aria-label="Espacio para la foto 6"><span>Foto 6</span></div>
+            </div>
+            <button class="personal-carousel-control personal-carousel-previous" type="button" aria-label="Ver fotos anteriores de Elizabeth" data-carousel-direction="-1">‹</button>
+            <button class="personal-carousel-control personal-carousel-next" type="button" aria-label="Ver más fotos de Elizabeth" data-carousel-direction="1">›</button>
+          </div>
+        </div>
+      </details>
     </section>
 
     <section class="wheel-section" id="ruleta" aria-labelledby="wheel-title">
@@ -1350,42 +1387,6 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
             Tu navegador no puede reproducir este audio.
           </audio>
           <p class="red-thread-audio-status" aria-live="polite">Toca «Escuchar audio» para oírlo. ♥</p>
-        </section>
-        <section class="personal-photo-options" aria-label="Apartados de fotos personales">
-          <details class="personal-photo-option">
-            <summary>Leandro</summary>
-            <div class="personal-photo-space">
-              <div class="personal-photo-carousel">
-                <div class="personal-photo-gallery" aria-label="Espacios para agregar varias fotos de Leandro" tabindex="0">
-                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-1.png" alt="Leandro al aire libre" loading="lazy" decoding="async"></div>
-                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-2.png" alt="Leandro con una camiseta gris" loading="lazy" decoding="async"></div>
-                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-3.png" alt="Leandro con gafas de sol" loading="lazy" decoding="async"></div>
-                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-4.png" alt="Leandro en una foto en blanco y negro" loading="lazy" decoding="async"></div>
-                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-5.png" alt="Leandro con camisa clara" loading="lazy" decoding="async"></div>
-                  <div class="personal-photo-slot has-photo"><img src="leandro-foto-6.png" alt="Leandro con camiseta negra en una foto en blanco y negro" loading="lazy" decoding="async"></div>
-                </div>
-                <button class="personal-carousel-control personal-carousel-previous" type="button" aria-label="Ver fotos anteriores de Leandro" data-carousel-direction="-1">‹</button>
-                <button class="personal-carousel-control personal-carousel-next" type="button" aria-label="Ver más fotos de Leandro" data-carousel-direction="1">›</button>
-              </div>
-            </div>
-          </details>
-          <details class="personal-photo-option">
-            <summary>Elizabeth</summary>
-            <div class="personal-photo-space">
-              <div class="personal-photo-carousel">
-                <div class="personal-photo-gallery" aria-label="Espacios para agregar varias fotos de Elizabeth" tabindex="0">
-                  <div class="personal-photo-slot" aria-label="Espacio para la foto 1"><span>Foto 1</span></div>
-                  <div class="personal-photo-slot" aria-label="Espacio para la foto 2"><span>Foto 2</span></div>
-                  <div class="personal-photo-slot" aria-label="Espacio para la foto 3"><span>Foto 3</span></div>
-                  <div class="personal-photo-slot" aria-label="Espacio para la foto 4"><span>Foto 4</span></div>
-                  <div class="personal-photo-slot" aria-label="Espacio para la foto 5"><span>Foto 5</span></div>
-                  <div class="personal-photo-slot" aria-label="Espacio para la foto 6"><span>Foto 6</span></div>
-                </div>
-                <button class="personal-carousel-control personal-carousel-previous" type="button" aria-label="Ver fotos anteriores de Elizabeth" data-carousel-direction="-1">‹</button>
-                <button class="personal-carousel-control personal-carousel-next" type="button" aria-label="Ver más fotos de Elizabeth" data-carousel-direction="1">›</button>
-              </div>
-            </div>
-          </details>
         </section>
       </div>
     </section>
@@ -1520,10 +1521,10 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       const step = musicStep % musicMelody.length;
       if (step % 4 === 0) {
         musicChords[Math.floor(step / 4)].forEach((frequency, index) => {
-          playMusicNote(frequency, audioContext.currentTime, 4.35, index === 0 ? 0.12 : 0.075, "triangle");
+          playMusicNote(frequency, audioContext.currentTime, 4.35, index === 0 ? 0.12 : 0.08, "triangle");
         });
       }
-      playMusicNote(musicMelody[step], audioContext.currentTime, 1.55, 0.16, "sine");
+      playMusicNote(musicMelody[step], audioContext.currentTime, 1.55, 0.22, "sine");
       musicStep = (musicStep + 1) % musicMelody.length;
     };
 
@@ -1554,11 +1555,12 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         }
 
         musicGain.gain.cancelScheduledValues(audioContext.currentTime);
-        musicGain.gain.setTargetAtTime(0.8, audioContext.currentTime, 0.6);
+        musicGain.gain.setTargetAtTime(1, audioContext.currentTime, 0.6);
         musicStep = 0;
         isMusicPlaying = true;
         musicPausedByUser = false;
-        musicHint.hidden = true;
+        musicHint.textContent = "Música activada. Si no se escucha, sube el volumen multimedia del teléfono y comprueba que no esté en silencio. ♥";
+        musicHint.hidden = !fromUserGesture;
         musicToggle.textContent = "Ⅱ Pausar música";
         musicToggle.setAttribute("aria-pressed", "true");
         playMusicStep();
@@ -1581,6 +1583,8 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       musicGain.gain.setTargetAtTime(0.0001, audioContext.currentTime, 0.12);
       isMusicPlaying = false;
       musicPausedByUser = true;
+      musicHint.textContent = "Música en pausa. Toca «Reanudar música» para escucharla. ♥";
+      musicHint.hidden = false;
       musicToggle.textContent = "♫ Reanudar música";
       musicToggle.setAttribute("aria-pressed", "false");
     };
