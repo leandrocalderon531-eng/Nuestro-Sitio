@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f6a8c7">
   <title>Para ti, mi amor</title>
+  <meta name="description" content="Una página llena de amor para Elizabeth.">
+  <meta property="og:title" content="Para Elizabeth 💖">
+  <meta property="og:description" content="Una página llena de amor para Elizabeth.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
   <style>
     :root {
       color-scheme: light;
@@ -43,12 +48,55 @@
       animation: color-shift 18s ease-in-out infinite;
     }
 
+    .ambient-hearts {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .ambient-heart {
+      position: absolute;
+      bottom: -12vh;
+      left: var(--heart-left);
+      color: #e83f78;
+      font-family: "Segoe UI", sans-serif;
+      font-size: var(--heart-size);
+      line-height: 1;
+      opacity: .72;
+      filter: drop-shadow(0 3px 7px rgb(75 39 61 / 18%));
+      animation: ambient-heart-float var(--heart-duration) linear var(--heart-delay) infinite;
+      will-change: transform;
+    }
+
+    .ambient-heart:nth-child(3n + 1) {
+      color: #fff0bf;
+    }
+
+    .ambient-heart:nth-child(3n + 2) {
+      color: #ef6c99;
+    }
+
+    .ambient-heart:nth-child(3n) {
+      color: #72a36a;
+    }
+
+    @keyframes ambient-heart-float {
+      0% { transform: translate3d(0, 0, 0) rotate(-12deg); }
+      50% { transform: translate3d(48px, -60vh, 0) rotate(16deg); }
+      100% { transform: translate3d(-42px, -120vh, 0) rotate(-16deg); }
+    }
+
     @keyframes color-shift {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
 
     main {
+      position: relative;
+      z-index: 1;
       min-height: 100vh;
       padding: 38px 22px 64px;
     }
@@ -1037,6 +1085,788 @@
       font-size: clamp(1.05rem, 2.5vw, 1.25rem);
     }
 
+    .surprise-trigger,
+    .proposal-button,
+    .surprise-close {
+      min-height: 48px;
+      padding: 12px 24px;
+      color: #fffaf0;
+      background: linear-gradient(135deg, #a83e59, #60477e);
+      border: 2px solid #fff4f0;
+      border-radius: 999px;
+      box-shadow: 0 5px 16px rgb(75 39 61 / 20%);
+      cursor: pointer;
+      font: 700 1rem "Segoe UI", sans-serif;
+      touch-action: manipulation;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .surprise-trigger {
+      margin-top: 20px;
+    }
+
+    .surprise-trigger:hover,
+    .proposal-button:hover,
+    .surprise-close:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgb(75 39 61 / 26%);
+    }
+
+    .surprise-trigger:focus-visible,
+    .proposal-button:focus-visible,
+    .surprise-close:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .reasons-section {
+      width: min(100%, 1000px);
+      margin: 8px auto 42px;
+      padding: clamp(24px, 5vw, 42px);
+      text-align: center;
+      background: rgb(255 250 248 / 76%);
+      border: 1px solid rgb(255 255 255 / 84%);
+      border-radius: 28px;
+      box-shadow: 0 10px 28px rgb(75 39 61 / 14%);
+    }
+
+    .reasons-section h2,
+    .proposal-section h2 {
+      margin: 0;
+      color: var(--rose);
+      font-size: clamp(2rem, 5vw, 3rem);
+      text-shadow: var(--text-shadow);
+    }
+
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+      gap: 18px;
+      margin-top: 28px;
+      text-align: left;
+    }
+
+    .reason-card {
+      padding: 22px;
+      color: #49283b;
+      background: linear-gradient(135deg, #ffd1d5, #e8caff);
+      border: 2px solid #fff;
+      border-radius: 20px;
+      box-shadow: 0 5px 14px rgb(75 39 61 / 13%);
+      font: 700 1.05rem/1.5 "Segoe UI", sans-serif;
+      transition: transform 180ms ease;
+    }
+
+    .reason-card:nth-child(3n + 2) {
+      background: linear-gradient(135deg, #e4f0d8, #fff0bf);
+    }
+
+    .reason-card:nth-child(3n) {
+      background: linear-gradient(135deg, #f8d7e8, #fff3ee);
+    }
+
+    .reason-card:hover {
+      transform: translateY(-4px) rotate(-1deg);
+    }
+
+    .reason-number {
+      display: block;
+      margin-bottom: 8px;
+      color: #8f1d42;
+      font: 700 1.6rem Georgia, "Times New Roman", serif;
+    }
+
+    .proposal-section {
+      position: relative;
+      width: min(100%, 900px);
+      min-height: 360px;
+      margin: 42px auto;
+      padding: clamp(32px, 7vw, 64px) 20px;
+      overflow: hidden;
+      text-align: center;
+      background: rgb(255 250 248 / 78%);
+      border: 1px solid rgb(255 255 255 / 84%);
+      border-radius: 28px;
+      box-shadow: 0 10px 28px rgb(75 39 61 / 14%);
+    }
+
+    .proposal-section > p {
+      color: var(--muted);
+      font: 700 1.15rem/1.6 "Segoe UI", sans-serif;
+    }
+
+    .proposal-actions {
+      display: flex;
+      min-height: 90px;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .proposal-button {
+      border-color: #fff;
+    }
+
+    .proposal-button-yes {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(135deg, #a83e59, #8f1d42);
+      transition: transform 220ms ease;
+    }
+
+    .proposal-button-no {
+      background: linear-gradient(135deg, #e4f0d8, #fff0bf);
+      color: #49283b;
+      transition: transform 180ms ease;
+    }
+
+    .proposal-success[hidden] {
+      display: none;
+    }
+
+    .proposal-success .success-hearts {
+      margin: 0;
+      font-size: clamp(3.5rem, 12vw, 6rem);
+    }
+
+    .proposal-success p {
+      margin-bottom: 0;
+      color: var(--rose);
+      font: 700 1.2rem/1.6 "Segoe UI", sans-serif;
+    }
+
+    .surprise-modal[hidden] {
+      display: none;
+    }
+
+    .surprise-modal {
+      position: fixed;
+      z-index: 1100;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgb(35 20 30 / 72%);
+    }
+
+    .surprise-dialog {
+      width: min(100%, 560px);
+      max-height: min(90vh, 760px);
+      padding: clamp(24px, 6vw, 42px);
+      overflow-y: auto;
+      color: var(--ink);
+      background: #fffaf8;
+      border: 3px solid #fff;
+      border-radius: 26px;
+      box-shadow: 0 12px 36px rgb(0 0 0 / 28%);
+      animation: surprise-arrives 260ms ease-out both;
+    }
+
+    .surprise-dialog h2 {
+      margin: 0 0 20px;
+      color: var(--rose);
+      font-size: clamp(1.8rem, 6vw, 2.5rem);
+      text-align: center;
+    }
+
+    .surprise-dialog p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .surprise-dialog .surprise-signoff {
+      color: var(--rose);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .surprise-close {
+      display: block;
+      width: 100%;
+      margin-top: 24px;
+      background: linear-gradient(135deg, #72a36a, #57915b);
+    }
+
+    .love-footer {
+      position: relative;
+      z-index: 1;
+      padding: 22px 16px;
+      color: #fff0bf;
+      background: var(--ink);
+      font: 700 1rem "Segoe UI", sans-serif;
+      text-align: center;
+    }
+
+    .love-activity {
+      width: min(100%, 1000px);
+      margin: 32px auto;
+      padding: clamp(24px, 5vw, 42px);
+      text-align: center;
+      background: rgb(255 250 248 / 82%);
+      border: 1px solid rgb(255 255 255 / 88%);
+      border-radius: 26px;
+      box-shadow: 0 10px 28px rgb(75 39 61 / 14%);
+    }
+
+    main > section {
+      animation: section-arrives 800ms cubic-bezier(.2, .7, .25, 1) both;
+    }
+
+    .reason-card,
+    .promise-list li,
+    .personal-photo-option,
+    .birthday-countdown,
+    .coupon-button,
+    .bingo-cell,
+    .language-list span {
+      animation: card-arrives 650ms cubic-bezier(.2, .7, .25, 1) both;
+    }
+
+    .reason-card:nth-child(2),
+    .promise-list li:nth-child(2),
+    .bingo-cell:nth-child(2),
+    .language-list span:nth-child(2) { animation-delay: 80ms; }
+
+    .reason-card:nth-child(3),
+    .promise-list li:nth-child(3),
+    .bingo-cell:nth-child(3),
+    .language-list span:nth-child(3) { animation-delay: 160ms; }
+
+    .reason-card:nth-child(4),
+    .promise-list li:nth-child(4),
+    .bingo-cell:nth-child(4),
+    .language-list span:nth-child(4) { animation-delay: 240ms; }
+
+    .reason-card:nth-child(5),
+    .promise-list li:nth-child(5),
+    .bingo-cell:nth-child(5),
+    .language-list span:nth-child(5) { animation-delay: 320ms; }
+
+    .reason-card:nth-child(6),
+    .bingo-cell:nth-child(6),
+    .language-list span:nth-child(6) { animation-delay: 400ms; }
+
+    .bingo-cell:nth-child(7),
+    .language-list span:nth-child(7) { animation-delay: 480ms; }
+
+    .bingo-cell:nth-child(8),
+    .language-list span:nth-child(8) { animation-delay: 560ms; }
+
+    .bingo-cell:nth-child(9),
+    .language-list span:nth-child(9) { animation-delay: 640ms; }
+
+    @keyframes section-arrives {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes card-arrives {
+      from { opacity: 0; transform: translateY(14px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .love-activity h2 {
+      margin: 0 0 12px;
+      color: var(--rose);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+    }
+
+    .love-activity > p {
+      color: var(--muted);
+      font: 700 1.05rem/1.6 "Segoe UI", sans-serif;
+    }
+
+    .activity-button,
+    .coupon-button,
+    .bingo-cell {
+      min-height: 48px;
+      padding: 12px 20px;
+      color: #fffaf0;
+      background: linear-gradient(135deg, #a83e59, #60477e);
+      border: 2px solid #fff;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgb(75 39 61 / 16%);
+      cursor: pointer;
+      font: 700 1rem/1.4 "Segoe UI", sans-serif;
+      touch-action: manipulation;
+      transition: transform 180ms ease, filter 180ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .activity-button:hover,
+    .coupon-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .activity-button:focus-visible,
+    .coupon-button:focus-visible,
+    .bingo-cell:focus-visible {
+      outline: 3px solid var(--lilac);
+      outline-offset: 3px;
+    }
+
+    .activity-output {
+      min-height: 1.8em;
+      margin: 18px auto 0;
+      color: var(--rose);
+      font: 700 1.1rem/1.6 "Segoe UI", sans-serif;
+    }
+
+    .love-meter-heart {
+      display: block;
+      margin: 12px auto;
+      padding: 0 12px;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font-size: clamp(5rem, 20vw, 9rem);
+      line-height: 1.2;
+      transition: transform 150ms ease;
+    }
+
+    .love-meter-heart:active {
+      transform: scale(.9);
+    }
+
+    .love-meter-track {
+      width: min(100%, 500px);
+      height: 38px;
+      margin: 22px auto;
+      overflow: hidden;
+      background: #fff;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+    }
+
+    .love-meter-fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #e63f78, #d8bd45, #72b86b);
+      transition: width 350ms ease;
+    }
+
+    .promise-list {
+      max-width: 700px;
+      margin: 24px auto 0;
+      padding: 0;
+      list-style: none;
+      text-align: left;
+    }
+
+    .promise-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 12px 0;
+      padding: 16px;
+      background: #fffaf8;
+      border: 1px solid rgb(255 255 255 / 90%);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgb(75 39 61 / 10%);
+      font: 700 1rem/1.5 "Segoe UI", sans-serif;
+    }
+
+    .promise-list span {
+      font-size: 1.8rem;
+    }
+
+    .envelope-game,
+    .coupon-grid,
+    .language-list,
+    .wish-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+      gap: 14px;
+      margin: 22px auto 0;
+    }
+
+    .envelope-game .activity-button {
+      min-height: 100px;
+      font-size: 1.2rem;
+    }
+
+    .poem-lines {
+      max-width: 640px;
+      margin: 20px auto;
+      color: #773751;
+      font-size: clamp(1.05rem, 3vw, 1.25rem);
+      font-style: italic;
+      line-height: 1.9;
+    }
+
+    .bottle-scene {
+      position: relative;
+      display: grid;
+      min-height: 270px;
+      place-items: center;
+      margin: 14px auto 8px;
+      perspective: 700px;
+    }
+
+    .message-bottle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 116px;
+      height: 190px;
+      transform: translate(-50%, -50%);
+      transform-origin: 50% 85%;
+      filter: drop-shadow(0 10px 12px rgb(44 62 80 / 20%));
+      transition: transform 500ms cubic-bezier(.2, .8, .25, 1);
+    }
+
+    .message-bottle.is-open {
+      transform: translate(-50%, -50%) rotate(-12deg);
+    }
+
+    .bottle-note {
+      position: absolute;
+      z-index: 4;
+      top: 50%;
+      left: 50%;
+      display: grid;
+      width: min(250px, 72vw);
+      min-height: 88px;
+      place-items: center;
+      margin: 0;
+      padding: 18px 22px;
+      color: #773751;
+      background: repeating-linear-gradient(#fffaf0 0 27px, #ecd9c4 28px 29px);
+      border: 2px solid #d6ad7d;
+      border-radius: 6px 6px 16px 6px;
+      box-shadow: 0 9px 22px rgb(44 32 28 / 24%);
+      font: 700 .98rem/1.55 "Segoe UI", sans-serif;
+      text-align: center;
+      transform: translate(-50%, 35px) scale(.7) rotate(8deg);
+      transform-origin: 50% 100%;
+    }
+
+    .bottle-note[hidden] {
+      display: none;
+    }
+
+    .bottle-note:not([hidden]) {
+      animation: none;
+    }
+
+    .bottle-note.is-emerging {
+      animation: note-emerges 850ms cubic-bezier(.16, .78, .25, 1) both;
+    }
+
+    .bottle-note.is-returning {
+      animation: note-returns 700ms cubic-bezier(.55, 0, .8, .35) both;
+    }
+
+    @keyframes note-emerges {
+      0% { opacity: 0; transform: translate(-50%, 35px) scale(.7) rotate(8deg); }
+      65% { opacity: 1; transform: translate(-50%, -103px) scale(1.04) rotate(-5deg); }
+      100% { opacity: 1; transform: translate(-50%, -92px) scale(1) rotate(-3deg); }
+    }
+
+    @keyframes note-returns {
+      0% { opacity: 1; transform: translate(-50%, -92px) scale(1) rotate(-3deg); }
+      100% { opacity: 0; transform: translate(-50%, 35px) scale(.7) rotate(8deg); }
+    }
+
+    .bottle-neck {
+      position: absolute;
+      top: 7px;
+      left: 43px;
+      z-index: 1;
+      width: 30px;
+      height: 50px;
+      background: linear-gradient(90deg, #9fe2df, #d7fff1 48%, #6ebdb7);
+      border: 2px solid rgb(255 255 255 / 76%);
+      border-bottom: 0;
+      border-radius: 8px 8px 2px 2px;
+    }
+
+    .bottle-cork {
+      position: absolute;
+      top: 0;
+      left: 46px;
+      z-index: 2;
+      width: 24px;
+      height: 20px;
+      background: linear-gradient(90deg, #9f613e, #d29a6a 48%, #8d5037);
+      border: 2px solid #fff0bf;
+      border-radius: 7px 7px 4px 4px;
+      transition: transform 450ms cubic-bezier(.15, .8, .25, 1), opacity 300ms ease;
+    }
+
+    .message-bottle.is-open .bottle-cork {
+      opacity: 0;
+      transform: translate(38px, -56px) rotate(65deg);
+    }
+
+    .bottle-body {
+      position: absolute;
+      top: 47px;
+      left: 8px;
+      display: grid;
+      width: 100px;
+      height: 135px;
+      place-items: center;
+      overflow: hidden;
+      background: linear-gradient(100deg, rgb(111 202 197 / 72%), rgb(219 255 242 / 83%) 35%, rgb(91 177 174 / 77%));
+      border: 3px solid rgb(255 255 255 / 82%);
+      border-radius: 34px 34px 28px 28px;
+      box-shadow: inset 8px 0 10px rgb(255 255 255 / 40%), inset -8px 0 10px rgb(18 94 98 / 13%);
+    }
+
+    .bottle-body::after {
+      position: absolute;
+      inset: 12px auto 12px 12px;
+      width: 8px;
+      background: rgb(255 255 255 / 42%);
+      border-radius: 99px;
+      content: "";
+    }
+
+    .bottle-label {
+      display: grid;
+      width: 72px;
+      height: 67px;
+      place-items: center;
+      padding: 5px;
+      color: #8f1d42;
+      background: #fff4e6;
+      border: 2px solid #e6b07a;
+      border-radius: 8px;
+      font-size: 1.8rem;
+      transform: rotate(-5deg);
+      transition: transform 400ms ease;
+    }
+
+    .message-bottle.is-open .bottle-label {
+      transform: rotate(4deg) scale(1.08);
+    }
+
+    .bottle-water {
+      position: absolute;
+      right: 7px;
+      bottom: 8px;
+      left: 7px;
+      height: 22px;
+      background: rgb(74 175 174 / 48%);
+      border-radius: 50%;
+    }
+
+    .dice-stage {
+      position: relative;
+      height: 330px;
+      margin: 8px auto 0;
+      perspective: 600px;
+      perspective-origin: 50% 40%;
+    }
+
+    .love-die {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      width: 112px;
+      height: 112px;
+      transform-style: preserve-3d;
+      transform: translateX(-50%);
+      transition: transform 700ms cubic-bezier(.2, .75, .25, 1);
+      z-index: 2;
+    }
+
+    .love-die.is-rolling {
+      animation: dice-tumble 1.5s cubic-bezier(.2, .7, .15, 1) both;
+    }
+
+    @keyframes dice-tumble {
+      0% { transform: translateX(-50%) rotateX(0) rotateY(0) rotateZ(0) scale(1); }
+      30% { transform: translateX(-50%) rotateX(260deg) rotateY(220deg) rotateZ(100deg) scale(1.18); }
+      65% { transform: translateX(-50%) rotateX(620deg) rotateY(480deg) rotateZ(220deg) scale(.92); }
+      100% { transform: translateX(-50%) rotateX(900deg) rotateY(720deg) rotateZ(360deg) scale(1); }
+    }
+
+    .die-face {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+      padding: 13px;
+      background: linear-gradient(145deg, #fff, #f8dce8);
+      border: 3px solid #a83e59;
+      border-radius: 20px;
+      box-shadow: inset 0 0 12px rgb(143 29 66 / 12%), 0 0 1px 1px #8f1d42;
+      backface-visibility: hidden;
+    }
+
+    .die-face-front { background: linear-gradient(145deg, #fff, #f8dce8); }
+    .die-face-back { background: linear-gradient(145deg, #f7d8e6, #eab9d1); }
+    .die-face-right { background: linear-gradient(145deg, #fce8ef, #e6bfd0); }
+    .die-face-left { background: linear-gradient(145deg, #efc5d6, #d995b2); }
+    .die-face-top { background: linear-gradient(145deg, #fff8fc, #f3d9e7); }
+    .die-face-bottom { background: linear-gradient(145deg, #dca2ba, #bd718f); }
+
+    .die-face span {
+      display: grid;
+      place-items: center;
+      color: #a83e59;
+      font: 900 1.55rem/1 "Segoe UI", sans-serif;
+    }
+
+    .die-face-front { transform: translateZ(56px); }
+    .die-face-back { transform: rotateY(180deg) translateZ(56px); }
+    .die-face-right { transform: rotateY(90deg) translateZ(56px); }
+    .die-face-left { transform: rotateY(-90deg) translateZ(56px); }
+    .die-face-top { transform: rotateX(90deg) translateZ(56px); }
+    .die-face-bottom { transform: rotateX(-90deg) translateZ(56px); }
+
+    .dice-note {
+      position: absolute;
+      top: 132px;
+      left: 50%;
+      z-index: 1;
+      width: min(320px, 84vw);
+      min-height: 80px;
+      margin: 0;
+      padding: 16px 20px;
+      color: #773751;
+      background: repeating-linear-gradient(#fffaf0 0 27px, #ecd9c4 28px 29px);
+      border: 2px solid #d6ad7d;
+      border-radius: 6px 6px 16px 6px;
+      box-shadow: 0 9px 22px rgb(44 32 28 / 24%);
+      font: 700 .96rem/1.5 "Segoe UI", sans-serif;
+      text-align: center;
+      transform: translate(-50%, -20px) scale(.72) rotate(5deg);
+    }
+
+    .dice-note[hidden] {
+      display: none;
+    }
+
+    .dice-note.is-emerging {
+      animation: dice-note-emerges 700ms cubic-bezier(.16, .78, .25, 1) both;
+    }
+
+    @keyframes dice-note-emerges {
+      0% { opacity: 0; transform: translate(-50%, -32px) scale(.65) rotate(7deg); }
+      65% { opacity: 1; transform: translate(-50%, 16px) scale(1.04) rotate(-4deg); }
+      100% { opacity: 1; transform: translate(-50%, 12px) scale(1) rotate(-2deg); }
+    }
+
+    .die-face .pip-empty {
+      visibility: hidden;
+    }
+
+    .activity-button:disabled {
+      cursor: wait;
+      opacity: .75;
+    }
+
+    .bingo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      width: min(100%, 600px);
+      margin: 22px auto 0;
+    }
+
+    .bingo-cell {
+      min-height: 100px;
+      padding: 10px;
+      color: #49283b;
+      background: linear-gradient(135deg, #ffd1d5, #e8caff);
+      border: 2px solid #fff;
+      border-radius: 14px;
+      font-size: .9rem;
+    }
+
+    .bingo-cell.is-checked {
+      color: #fffaf0;
+      background: linear-gradient(135deg, #72a36a, #57915b);
+      text-decoration: line-through;
+    }
+
+    .coupon-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    }
+
+    .coupon-button {
+      min-height: 100px;
+      color: #49283b;
+      background: linear-gradient(135deg, #ffd1d5, #e8caff);
+      border-style: dashed;
+      border-width: 2px;
+      border-color: var(--ink);
+      border-radius: 18px;
+    }
+
+    .coupon-button.is-redeemed {
+      background: linear-gradient(135deg, #e4f0d8, #fff0bf);
+    }
+
+    .language-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .language-list span {
+      padding: 9px 16px;
+      color: #49283b;
+      background: linear-gradient(135deg, #ffd1d5, #e8caff);
+      border: 2px solid #fff;
+      border-radius: 999px;
+      font: 700 1rem "Segoe UI", sans-serif;
+    }
+
+    .garden-bed {
+      display: flex;
+      min-height: 150px;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: center;
+      gap: 8px;
+      margin: 22px auto;
+      padding: 18px;
+      background: linear-gradient(#e9f4f3 60%, #8bb779 60%);
+      border-radius: 18px;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+    }
+
+    .floating-love {
+      position: fixed;
+      z-index: 1200;
+      pointer-events: none;
+      animation: love-rise 1.5s ease-out forwards;
+    }
+
+    .love-confetti {
+      position: fixed;
+      z-index: 1150;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .love-confetti span {
+      position: absolute;
+      top: -40px;
+      animation: confetti-fall 3.2s ease-in forwards;
+    }
+
+    @keyframes love-rise {
+      to { opacity: 0; transform: translateY(-90px) scale(1.5); }
+    }
+
+    @keyframes confetti-fall {
+      to { opacity: 0; transform: translateY(110vh) rotate(540deg); }
+    }
+
+    @keyframes surprise-arrives {
+      from { opacity: 0; transform: translateY(14px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     @media (max-width: 480px) {
       main {
         padding: 22px 10px 44px;
@@ -1202,6 +2032,10 @@
         animation: none;
       }
 
+      .ambient-hearts {
+        display: none;
+      }
+
       .memory-slideshow img {
         transition: none;
       }
@@ -1211,10 +2045,49 @@
         animation: none;
         stroke-dashoffset: 0;
       }
+
+      main > section,
+      .reason-card,
+      .promise-list li,
+      .personal-photo-option,
+      .birthday-countdown,
+      .coupon-button,
+      .bingo-cell,
+      .language-list span,
+      .love-die.is-rolling,
+      .floating-love,
+      .love-confetti span {
+        animation: none !important;
+      }
+
+      .ambient-heart {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      .message-bottle,
+      .bottle-note,
+      .bottle-cork,
+      .bottle-label,
+      .love-die,
+      .love-meter-fill {
+        transition: none;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="ambient-hearts" aria-hidden="true">
+    <span class="ambient-heart" style="--heart-left: 6%; --heart-size: 30px; --heart-duration: 16s; --heart-delay: -8s">💖</span>
+    <span class="ambient-heart" style="--heart-left: 16%; --heart-size: 22px; --heart-duration: 13s; --heart-delay: -3s">💕</span>
+    <span class="ambient-heart" style="--heart-left: 27%; --heart-size: 36px; --heart-duration: 18s; --heart-delay: -14s">💚</span>
+    <span class="ambient-heart" style="--heart-left: 38%; --heart-size: 24px; --heart-duration: 14s; --heart-delay: -6s">💗</span>
+    <span class="ambient-heart" style="--heart-left: 49%; --heart-size: 32px; --heart-duration: 17s; --heart-delay: -11s">💛</span>
+    <span class="ambient-heart" style="--heart-left: 60%; --heart-size: 23px; --heart-duration: 13s; --heart-delay: -4s">💖</span>
+    <span class="ambient-heart" style="--heart-left: 71%; --heart-size: 35px; --heart-duration: 19s; --heart-delay: -16s">💕</span>
+    <span class="ambient-heart" style="--heart-left: 82%; --heart-size: 25px; --heart-duration: 15s; --heart-delay: -7s">💚</span>
+    <span class="ambient-heart" style="--heart-left: 93%; --heart-size: 31px; --heart-duration: 17s; --heart-delay: -12s">💗</span>
+  </div>
   <button class="music-toggle" type="button" aria-pressed="false">♫ Iniciar música</button>
   <main>
     <section class="card" aria-labelledby="title">
@@ -1225,6 +2098,7 @@
       <p class="message">
         Para mi pinchecha.
       </p>
+      <button class="surprise-trigger" type="button" aria-haspopup="dialog" aria-controls="surprise-modal">Abrir sorpresa ✨</button>
       <p class="music-hint" hidden aria-live="polite">Toca «Iniciar música». Si no se escucha, sube el volumen multimedia del teléfono y comprueba que no esté en silencio. ♥</p>
 
       <p class="letter-prompt">Haz clic en el sobre para abrir tu carta</p>
@@ -1239,6 +2113,25 @@
           <span class="envelope-seal">♥</span>
         </span>
       </button>
+    </section>
+
+    <section class="reasons-section" aria-labelledby="reasons-title">
+      <h2 id="reasons-title">Razones por las que te amo</h2>
+      <div class="reasons-grid">
+        <article class="reason-card"><span class="reason-number">#1</span>Tu sonrisa ilumina mis días más grises.</article>
+        <article class="reason-card"><span class="reason-number">#2</span>Me haces reír como nadie más.</article>
+        <article class="reason-card"><span class="reason-number">#3</span>Contigo todo se siente como en casa.</article>
+        <article class="reason-card"><span class="reason-number">#4</span>Eres mi persona favorita en el mundo.</article>
+        <article class="reason-card"><span class="reason-number">#5</span>Haces que cada momento sea especial.</article>
+        <article class="reason-card"><span class="reason-number">#6</span>Porque simplemente eres tú, Elizabeth.</article>
+      </div>
+    </section>
+
+    <section class="love-activity" aria-labelledby="wishes-title">
+      <h2 id="wishes-title">Deseos para ti</h2>
+      <p>Un deseo bonito para recordarte cuánto te quiero. 💌</p>
+      <button class="activity-button" type="button" id="wish-button">Descubrir un deseo ✨</button>
+      <p class="activity-output" id="wish-output" aria-live="polite"></p>
     </section>
 
     <section class="personal-photo-options" aria-label="Apartados de fotos personales">
@@ -1326,6 +2219,43 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       <p>Un espacio para guardar esos momentos que siempre quiero recordar. Cada foto nuestra cuenta una historia que me encanta compartir contigo.</p>
     </section>
 
+    <section class="proposal-section" aria-labelledby="proposal-title">
+      <div class="proposal-question">
+        <h2 id="proposal-title">¿Me quieres?</h2>
+        <p>Una pregunta sencilla para la persona más especial de mi vida. 💖</p>
+        <div class="proposal-actions">
+          <button class="proposal-button proposal-button-yes" type="button">¡Sí! 💖</button>
+          <button class="proposal-button proposal-button-no" type="button">No</button>
+        </div>
+      </div>
+      <div class="proposal-success" hidden aria-live="polite">
+        <p class="success-hearts" aria-hidden="true">💖💚💛</p>
+        <h2>¡Sabía que dirías que sí!</h2>
+        <p>Te amo muchísimo, Elizabeth. ♥</p>
+      </div>
+    </section>
+
+    <section class="love-activity" aria-labelledby="love-meter-title">
+      <h2 id="love-meter-title">Medidor de amor</h2>
+      <p>Toca el corazón para ver cuánto te amo</p>
+      <button class="love-meter-heart" type="button" aria-label="Aumentar el medidor de amor">💖</button>
+      <div class="love-meter-track" role="progressbar" aria-label="Medidor de amor" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="love-meter-fill"></div>
+      </div>
+      <p class="activity-output love-meter-output" aria-live="polite">0%</p>
+    </section>
+
+    <section class="love-activity" aria-labelledby="promises-title">
+      <h2 id="promises-title">Mis promesas para ti</h2>
+      <ul class="promise-list">
+        <li><span aria-hidden="true">💍</span>Hacerte reír incluso en tus días difíciles.</li>
+        <li><span aria-hidden="true">👂</span>Escucharte siempre, de verdad.</li>
+        <li><span aria-hidden="true">🤗</span>Abrazarte fuerte cuando lo necesites.</li>
+        <li><span aria-hidden="true">🎉</span>Celebrar cada logro tuyo como si fuera mío.</li>
+        <li><span aria-hidden="true">💘</span>Elegirte todos los días, una y otra vez.</li>
+      </ul>
+    </section>
+
     <section class="heart-key-area" aria-live="polite">
       <button class="heart-key" type="button">🗝️ Llave a mi corazón</button>
     </section>
@@ -1390,9 +2320,150 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         </section>
       </div>
     </section>
+    <section class="love-activity" aria-labelledby="envelopes-title">
+      <h2 id="envelopes-title">Sobres de amor</h2>
+      <p>Abre uno para descubrir una pequeña sorpresa. 💌</p>
+      <div class="envelope-game">
+        <button class="activity-button love-envelope" type="button" data-message="Hoy te mando un abrazo enorme, aunque sea a la distancia. 🤗">💌 Sobre 1</button>
+        <button class="activity-button love-envelope" type="button" data-message="Tu sonrisa es uno de mis lugares favoritos. 🌸">💌 Sobre 2</button>
+        <button class="activity-button love-envelope" type="button" data-message="Vale por un beso y muchos más. 💋">💌 Sobre 3</button>
+      </div>
+      <p class="activity-output" id="envelope-output" aria-live="polite"></p>
+    </section>
+
+    <section class="love-activity" aria-labelledby="poem-title">
+      <h2 id="poem-title">Un poema para ti</h2>
+      <div class="poem-lines">
+        <p>En tus ojos encuentro mi calma,<br>en tu risa, mi canción.</p>
+        <p>Y en cada abrazo tuyo,<br>mi lugar y mi hogar.</p>
+        <p>Elizabeth, cada día a tu lado<br>es un regalo para el corazón. 💖</p>
+      </div>
+    </section>
+
+    <section class="love-activity" aria-labelledby="bottle-title">
+      <h2 id="bottle-title">Un mensaje en una botella</h2>
+      <p>Destapa una nota de amor hecha solo para ti. 🌊</p>
+      <div class="bottle-scene">
+        <div class="message-bottle" id="message-bottle" aria-hidden="true">
+          <span class="bottle-cork"></span>
+          <span class="bottle-neck"></span>
+          <span class="bottle-body">
+            <span class="bottle-label">♥</span>
+            <span class="bottle-water"></span>
+          </span>
+        </div>
+        <p class="bottle-note" id="bottle-output" hidden aria-live="polite"></p>
+      </div>
+      <button class="activity-button" type="button" id="bottle-button">Destapar la botella 🍾</button>
+    </section>
+
+    <section class="love-activity" aria-labelledby="dice-title">
+      <h2 id="dice-title">Dado de planes para dos</h2>
+      <p>Lánzalo para elegir nuestro próximo momento juntos. 🎲</p>
+      <div class="dice-stage">
+        <div class="love-die" id="love-die">
+          <div class="die-face die-face-front">
+            <span class="pip-empty"></span><span class="pip-empty"></span><span class="pip-empty"></span>
+            <span class="pip-empty"></span><span>•</span><span class="pip-empty"></span>
+            <span class="pip-empty"></span><span class="pip-empty"></span><span class="pip-empty"></span>
+          </div>
+          <div class="die-face die-face-back">
+            <span>•</span><span class="pip-empty"></span><span>•</span>
+            <span class="pip-empty"></span><span class="pip-empty"></span><span class="pip-empty"></span>
+            <span>•</span><span class="pip-empty"></span><span>•</span>
+          </div>
+          <div class="die-face die-face-right">
+            <span>•</span><span class="pip-empty"></span><span class="pip-empty"></span>
+            <span class="pip-empty"></span><span>•</span><span class="pip-empty"></span>
+            <span class="pip-empty"></span><span class="pip-empty"></span><span>•</span>
+          </div>
+          <div class="die-face die-face-left">
+            <span>•</span><span class="pip-empty"></span><span>•</span>
+            <span class="pip-empty"></span><span class="pip-empty"></span><span class="pip-empty"></span>
+            <span class="pip-empty"></span><span class="pip-empty"></span><span class="pip-empty"></span>
+          </div>
+          <div class="die-face die-face-top">
+            <span>•</span><span class="pip-empty"></span><span>•</span>
+            <span class="pip-empty"></span><span>•</span><span class="pip-empty"></span>
+            <span>•</span><span class="pip-empty"></span><span>•</span>
+          </div>
+          <div class="die-face die-face-bottom">
+            <span>•</span><span class="pip-empty"></span><span>•</span>
+            <span>•</span><span class="pip-empty"></span><span>•</span>
+            <span>•</span><span class="pip-empty"></span><span>•</span>
+          </div>
+        </div>
+        <p class="dice-note" id="dice-output" hidden aria-live="polite"></p>
+      </div>
+      <button class="activity-button" type="button" id="dice-button">Lanzar el dado 🎲</button>
+    </section>
+
+    <section class="love-activity" aria-labelledby="bingo-title">
+      <h2 id="bingo-title">Bingo de nuestro amor</h2>
+      <p>Toca las casillas que describen nuestra historia. 💚</p>
+      <div class="bingo-grid" role="group" aria-label="Casillas del bingo de amor">
+        <button class="bingo-cell" type="button" data-bingo-index="0">Una risa juntos</button>
+        <button class="bingo-cell" type="button" data-bingo-index="1">Un abrazo especial</button>
+        <button class="bingo-cell" type="button" data-bingo-index="2">Un mensaje bonito</button>
+        <button class="bingo-cell" type="button" data-bingo-index="3">Una cita inolvidable</button>
+        <button class="bingo-cell" type="button" data-bingo-index="4">Un beso 💖</button>
+        <button class="bingo-cell" type="button" data-bingo-index="5">Un recuerdo feliz</button>
+        <button class="bingo-cell" type="button" data-bingo-index="6">Decir “te amo”</button>
+        <button class="bingo-cell" type="button" data-bingo-index="7">Soñar juntos</button>
+        <button class="bingo-cell" type="button" data-bingo-index="8">Elegirnos siempre</button>
+      </div>
+      <p class="activity-output" id="bingo-output" aria-live="polite"></p>
+    </section>
+
+    <section class="love-activity" aria-labelledby="garden-title">
+      <h2 id="garden-title">Nuestro jardín de amor</h2>
+      <p>Planta una flor cada vez que quieras regalarme una sonrisa. 🌱</p>
+      <div class="garden-bed" id="garden-bed" aria-label="Jardín vacío" aria-live="polite"></div>
+      <button class="activity-button" type="button" id="garden-button">Plantar una flor 🌷</button>
+    </section>
+
+    <section class="love-activity" aria-labelledby="coupons-title">
+      <h2 id="coupons-title">Cupones de amor</h2>
+      <p>Toca uno para canjearlo 🎟️</p>
+      <div class="coupon-grid">
+        <button class="coupon-button" type="button">Un abrazo infinito 🤗</button>
+        <button class="coupon-button" type="button">Una cita sorpresa 🌹</button>
+        <button class="coupon-button" type="button">Besos ilimitados 💋</button>
+        <button class="coupon-button" type="button">Noche de películas 🍿</button>
+      </div>
+    </section>
+
+    <section class="love-activity" aria-labelledby="languages-title">
+      <h2 id="languages-title">Te amo en todos los idiomas</h2>
+      <div class="language-list">
+        <span>Te amo</span><span>I love you</span><span>Je t'aime</span><span>Ti amo</span>
+        <span>Ich liebe dich</span><span>Eu te amo</span><span>愛してる</span><span>사랑해</span>
+        <span>Σ'αγαπώ</span><span>Я тебя люблю</span>
+      </div>
+    </section>
   </main>
+  <footer class="love-footer">Con todo mi amor 💛</footer>
+  <div class="surprise-modal" id="surprise-modal" hidden>
+    <section class="surprise-dialog" role="dialog" aria-modal="true" aria-labelledby="surprise-title" tabindex="-1">
+      <p class="success-hearts" aria-hidden="true" style="text-align: center">💌</p>
+      <h2 id="surprise-title">Querida Elizabeth</h2>
+      <p>Desde que llegaste a mi vida, todo tiene más color. Eres mi verde de esperanza, mi amarillo de alegría y mi rosa de amor.</p>
+      <p>Me encanta tu forma de reír, cómo me miras y la paz que siento cuando estoy contigo. Cada día a tu lado es un regalo.</p>
+      <p>Gracias por quererme, por acompañarme y por hacerme tan feliz. Quiero seguir creando recuerdos contigo, hoy y siempre.</p>
+      <p class="surprise-signoff">Te amo con todo mi corazón. 💖</p>
+      <button class="surprise-close" type="button">Cerrar 💚</button>
+    </section>
+  </div>
   <script>
     const letterButton = document.querySelector(".letter-button");
+    const surpriseTrigger = document.querySelector(".surprise-trigger");
+    const surpriseModal = document.querySelector(".surprise-modal");
+    const surpriseDialog = document.querySelector(".surprise-dialog");
+    const surpriseClose = document.querySelector(".surprise-close");
+    const proposalQuestion = document.querySelector(".proposal-question");
+    const proposalSuccess = document.querySelector(".proposal-success");
+    const proposalYes = document.querySelector(".proposal-button-yes");
+    const proposalNo = document.querySelector(".proposal-button-no");
     const wheelSection = document.querySelector(".wheel-section");
     const wheel = document.querySelector(".wheel");
     const spinButton = document.querySelector(".spin-button");
@@ -1678,6 +2749,234 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       const isOpen = letterButton.classList.toggle("is-open");
       letterButton.setAttribute("aria-expanded", String(isOpen));
       letterButton.setAttribute("aria-label", isOpen ? "Cerrar la carta" : "Abrir la carta");
+    });
+
+    let previousFocus;
+    const closeSurprise = () => {
+      surpriseModal.hidden = true;
+      if (previousFocus instanceof HTMLElement) previousFocus.focus();
+    };
+
+    surpriseTrigger.addEventListener("click", () => {
+      previousFocus = document.activeElement;
+      surpriseModal.hidden = false;
+      surpriseDialog.focus();
+    });
+
+    surpriseClose.addEventListener("click", closeSurprise);
+    surpriseModal.addEventListener("click", (event) => {
+      if (event.target === surpriseModal) closeSurprise();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !surpriseModal.hidden) closeSurprise();
+    });
+
+    let noCount = 0;
+    proposalNo.addEventListener("click", () => {
+      noCount += 1;
+      const maxX = Math.min(120, window.innerWidth / 3);
+      const maxY = Math.min(60, window.innerHeight / 10);
+      const x = Math.random() * maxX * 2 - maxX;
+      const y = Math.random() * maxY * 2 - maxY;
+      proposalNo.style.transform = `translate(${x}px, ${y}px)`;
+      proposalYes.style.transform = `scale(${Math.min(1 + noCount * 0.12, 1.65)})`;
+      if (noCount >= 2) {
+        proposalNo.hidden = true;
+      }
+    });
+
+    proposalYes.addEventListener("click", () => {
+      proposalQuestion.hidden = true;
+      proposalSuccess.hidden = false;
+      const confetti = document.createElement("div");
+      confetti.className = "love-confetti";
+      confetti.setAttribute("aria-hidden", "true");
+      const confettiEmojis = ["💖", "💚", "💛", "🌸", "💕", "✨"];
+      for (let index = 0; index < 70; index += 1) {
+        const piece = document.createElement("span");
+        piece.textContent = confettiEmojis[index % confettiEmojis.length];
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.animationDelay = `${Math.random() * 1.2}s`;
+        piece.style.fontSize = `${14 + Math.random() * 20}px`;
+        confetti.append(piece);
+      }
+      document.body.append(confetti);
+      window.setTimeout(() => confetti.remove(), 4500);
+    });
+
+    const mainContent = document.querySelector("main");
+    const floatingEmojis = ["💖", "💚", "💛", "🌸", "💕"];
+    mainContent.addEventListener("click", (event) => {
+      const heart = document.createElement("span");
+      heart.className = "floating-love";
+      heart.setAttribute("aria-hidden", "true");
+      heart.textContent = floatingEmojis[Math.floor(Math.random() * floatingEmojis.length)];
+      heart.style.left = `${event.clientX - 15}px`;
+      heart.style.top = `${event.clientY - 15}px`;
+      heart.style.fontSize = "1.8rem";
+      document.body.append(heart);
+      window.setTimeout(() => heart.remove(), 1600);
+    });
+
+    const wishes = [
+      "Que nunca nos falten motivos para reír juntos. 💖",
+      "Que cada uno de tus sueños encuentre su camino. ✨",
+      "Que siempre sientas cuánto te quiero. 💚",
+      "Que sigamos creando recuerdos hermosos. 🌸",
+      "Que todos tus días tengan un poquito de alegría. 💛"
+    ];
+    const wishButton = document.getElementById("wish-button");
+    const wishOutput = document.getElementById("wish-output");
+    wishButton.addEventListener("click", () => {
+      wishOutput.textContent = wishes[Math.floor(Math.random() * wishes.length)];
+    });
+
+    const loveMeterHeart = document.querySelector(".love-meter-heart");
+    const loveMeterFill = document.querySelector(".love-meter-fill");
+    const loveMeterTrack = document.querySelector(".love-meter-track");
+    const loveMeterOutput = document.querySelector(".love-meter-output");
+    let loveAmount = 0;
+    loveMeterHeart.addEventListener("click", () => {
+      loveAmount = Math.min(loveAmount + 10, 100);
+      loveMeterFill.style.width = `${loveAmount}%`;
+      loveMeterTrack.setAttribute("aria-valuenow", String(loveAmount));
+      loveMeterOutput.textContent = loveAmount < 100
+        ? `${loveAmount}%`
+        : "¡Infinito! Mi amor por ti no cabe en ningún medidor ♾️";
+    });
+
+    const envelopeOutput = document.getElementById("envelope-output");
+    document.querySelectorAll(".love-envelope").forEach((envelope) => {
+      envelope.addEventListener("click", () => {
+        envelopeOutput.textContent = envelope.dataset.message;
+      });
+    });
+
+    const bottleMessages = [
+      "Eres mi persona favorita y mi lugar seguro. 💌",
+      "Gracias por llenar mis días de amor y alegría. 🌊",
+      "Te elegiría una y mil veces más. 💖",
+      "Mi hogar siempre será donde estés tú. 🏡"
+    ];
+    const messageBottle = document.getElementById("message-bottle");
+    const bottleButton = document.getElementById("bottle-button");
+    const bottleOutput = document.getElementById("bottle-output");
+    let bottleMessageIndex = -1;
+    let bottleCloseTimeout;
+    let bottleResetTimeout;
+    bottleButton.addEventListener("click", () => {
+      if (bottleButton.disabled) return;
+      messageBottle.classList.add("is-open");
+      bottleMessageIndex += 1;
+      bottleOutput.textContent = bottleMessages[bottleMessageIndex];
+      bottleOutput.hidden = false;
+      bottleOutput.classList.remove("is-returning", "is-emerging");
+      void bottleOutput.offsetWidth;
+      bottleOutput.classList.add("is-emerging");
+      bottleButton.textContent = "¡Botella destapada! 🍾";
+
+      if (bottleMessageIndex === bottleMessages.length - 1) {
+        bottleButton.disabled = true;
+        bottleButton.textContent = "La botella vuelve al mar… 🌊";
+        bottleCloseTimeout = window.setTimeout(() => {
+          bottleOutput.classList.remove("is-emerging");
+          bottleOutput.classList.add("is-returning");
+          bottleResetTimeout = window.setTimeout(() => {
+            messageBottle.classList.remove("is-open");
+            bottleOutput.hidden = true;
+            bottleOutput.classList.remove("is-returning");
+            bottleOutput.textContent = "";
+            bottleMessageIndex = -1;
+            bottleButton.disabled = false;
+            bottleButton.textContent = "Destapar la botella 🍾";
+          }, 700);
+        }, 2400);
+      }
+    });
+
+    const dateIdeas = [
+      { plan: "Una cita sorpresa 🌹", face: 1, rotation: "translateX(-50%) rotateX(-12deg) rotateY(-16deg)" },
+      { plan: "Una noche de películas 🍿", face: 2, rotation: "translateX(-50%) rotateX(-12deg) rotateY(164deg)" },
+      { plan: "Preparar algo rico juntos 🍓", face: 3, rotation: "translateX(-50%) rotateX(-12deg) rotateY(-74deg)" },
+      { plan: "Un paseo tomados de la mano 🌷", face: 4, rotation: "translateX(-50%) rotateX(-12deg) rotateY(106deg)" },
+      { plan: "Una tarde de abrazos y música 🎶", face: 5, rotation: "translateX(-50%) rotateX(78deg) rotateY(-16deg)" },
+      { plan: "Un picnic bajo las estrellas ✨", face: 6, rotation: "translateX(-50%) rotateX(-102deg) rotateY(-16deg)" }
+    ];
+    const loveDie = document.getElementById("love-die");
+    const diceButton = document.getElementById("dice-button");
+    const diceOutput = document.getElementById("dice-output");
+    diceButton.addEventListener("click", () => {
+      if (diceButton.disabled) return;
+      const selectedIdea = dateIdeas[Math.floor(Math.random() * dateIdeas.length)];
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      loveDie.classList.remove("is-rolling");
+      diceOutput.hidden = true;
+      diceOutput.classList.remove("is-emerging");
+      loveDie.style.transition = "none";
+      loveDie.style.transform = "translateX(-50%)";
+      void loveDie.offsetWidth;
+      loveDie.style.removeProperty("transition");
+      loveDie.classList.add("is-rolling");
+      diceButton.disabled = true;
+      diceButton.textContent = "¡Está girando! 🎲";
+      diceOutput.textContent = "El dado está eligiendo nuestro próximo plan…";
+
+      window.setTimeout(() => {
+        loveDie.classList.remove("is-rolling");
+        loveDie.style.transform = selectedIdea.rotation;
+        diceOutput.textContent = `Salió el ${selectedIdea.face}: ${selectedIdea.plan}`;
+        diceOutput.hidden = false;
+        void diceOutput.offsetWidth;
+        diceOutput.classList.add("is-emerging");
+        diceButton.disabled = false;
+        diceButton.textContent = "Lanzar otra vez 🎲";
+      }, reducedMotion ? 0 : 1500);
+    });
+
+    const bingoCells = [...document.querySelectorAll(".bingo-cell")];
+    const winningBingoLines = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
+    ];
+    bingoCells.forEach((cell) => {
+      cell.addEventListener("click", () => {
+        cell.classList.toggle("is-checked");
+        cell.setAttribute("aria-pressed", String(cell.classList.contains("is-checked")));
+        const checkedCells = new Set(
+          bingoCells
+            .filter((item) => item.classList.contains("is-checked"))
+            .map((item) => Number(item.dataset.bingoIndex))
+        );
+        const hasBingo = winningBingoLines.some((line) => line.every((index) => checkedCells.has(index)));
+        document.getElementById("bingo-output").textContent = hasBingo
+          ? "¡Bingo! Nuestro amor siempre gana. 💖"
+          : checkedCells.size === bingoCells.length
+            ? "¡Completaste todo el bingo! Te amo. 💚"
+            : `${checkedCells.size} de ${bingoCells.length} recuerdos marcados.`;
+      });
+    });
+
+    const gardenBed = document.getElementById("garden-bed");
+    let flowerCount = 0;
+    document.getElementById("garden-button").addEventListener("click", () => {
+      if (flowerCount >= 100) return;
+      const flower = document.createElement("span");
+      flower.textContent = ["🌷", "🌸", "🌼", "🌺", "💐"][flowerCount % 5];
+      flower.setAttribute("aria-hidden", "true");
+      gardenBed.append(flower);
+      flowerCount += 1;
+      gardenBed.setAttribute("aria-label", `Jardín con ${flowerCount} ${flowerCount === 1 ? "flor" : "flores"}`);
+    });
+
+    document.querySelectorAll(".coupon-button").forEach((coupon) => {
+      coupon.addEventListener("click", () => {
+        const redeemed = coupon.classList.toggle("is-redeemed");
+        coupon.textContent = redeemed
+          ? `¡Canjeado! ✅ ${coupon.dataset.couponLabel || coupon.textContent}`
+          : coupon.dataset.couponLabel;
+        if (redeemed) coupon.dataset.couponLabel = coupon.textContent.replace("¡Canjeado! ✅ ", "");
+      });
     });
 
     const finishSpin = () => {
