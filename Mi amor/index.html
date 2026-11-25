@@ -1488,6 +1488,36 @@
       font-size: 1.2rem;
     }
 
+    .envelope-note {
+      display: grid;
+      width: min(100%, 520px);
+      min-height: 78px;
+      place-items: center;
+      grid-column: 1 / -1;
+      margin: 4px auto 0;
+      padding: 16px 22px;
+      color: #773751;
+      background: repeating-linear-gradient(#fffaf0 0 27px, #ecd9c4 28px 29px);
+      border: 2px solid #d6ad7d;
+      border-radius: 6px 6px 16px 6px;
+      box-shadow: 0 8px 18px rgb(44 32 28 / 20%);
+      font: 700 .98rem/1.55 "Segoe UI", sans-serif;
+      text-align: center;
+    }
+
+    .envelope-note[hidden] {
+      display: none;
+    }
+
+    .envelope-note.is-emerging {
+      animation: envelope-note-emerges 600ms cubic-bezier(.16, .78, .25, 1) both;
+    }
+
+    @keyframes envelope-note-emerges {
+      from { opacity: 0; transform: translateY(18px) scale(.92) rotate(-2deg); }
+      to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+    }
+
     .poem-lines {
       max-width: 640px;
       margin: 20px auto;
@@ -1831,6 +1861,12 @@
       background: linear-gradient(#e9f4f3 60%, #8bb779 60%);
       border-radius: 18px;
       font-size: clamp(2rem, 8vw, 3.5rem);
+    }
+
+    .garden-count {
+      margin: 0 auto 16px;
+      color: var(--rose);
+      font: 700 1rem "Segoe UI", sans-serif;
     }
 
     .floating-love {
@@ -2327,8 +2363,8 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
         <button class="activity-button love-envelope" type="button" data-message="Hoy te mando un abrazo enorme, aunque sea a la distancia. 🤗">💌 Sobre 1</button>
         <button class="activity-button love-envelope" type="button" data-message="Tu sonrisa es uno de mis lugares favoritos. 🌸">💌 Sobre 2</button>
         <button class="activity-button love-envelope" type="button" data-message="Vale por un beso y muchos más. 💋">💌 Sobre 3</button>
+        <p class="envelope-note" id="envelope-output" hidden aria-live="polite"></p>
       </div>
-      <p class="activity-output" id="envelope-output" aria-live="polite"></p>
     </section>
 
     <section class="love-activity" aria-labelledby="poem-title">
@@ -2419,6 +2455,7 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
       <h2 id="garden-title">Nuestro jardín de amor</h2>
       <p>Planta una flor cada vez que quieras regalarme una sonrisa. 🌱</p>
       <div class="garden-bed" id="garden-bed" aria-label="Jardín vacío" aria-live="polite"></div>
+      <p class="garden-count" id="garden-count" aria-live="polite">0 de 5 flores</p>
       <button class="activity-button" type="button" id="garden-button">Plantar una flor 🌷</button>
     </section>
 
@@ -2848,7 +2885,11 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     const envelopeOutput = document.getElementById("envelope-output");
     document.querySelectorAll(".love-envelope").forEach((envelope) => {
       envelope.addEventListener("click", () => {
+        envelopeOutput.classList.remove("is-emerging");
         envelopeOutput.textContent = envelope.dataset.message;
+        envelopeOutput.hidden = false;
+        void envelopeOutput.offsetWidth;
+        envelopeOutput.classList.add("is-emerging");
       });
     });
 
@@ -2905,9 +2946,12 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
     const loveDie = document.getElementById("love-die");
     const diceButton = document.getElementById("dice-button");
     const diceOutput = document.getElementById("dice-output");
+    let previousDiceFace = null;
     diceButton.addEventListener("click", () => {
       if (diceButton.disabled) return;
-      const selectedIdea = dateIdeas[Math.floor(Math.random() * dateIdeas.length)];
+      const availableIdeas = dateIdeas.filter((idea) => idea.face !== previousDiceFace);
+      const selectedIdea = availableIdeas[Math.floor(Math.random() * availableIdeas.length)];
+      previousDiceFace = selectedIdea.face;
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       loveDie.classList.remove("is-rolling");
       diceOutput.hidden = true;
@@ -2959,14 +3003,22 @@ Te amo mi amor y nunca olvides que te amo con locura, para siempre ❤️
 
     const gardenBed = document.getElementById("garden-bed");
     let flowerCount = 0;
-    document.getElementById("garden-button").addEventListener("click", () => {
-      if (flowerCount >= 100) return;
+    const gardenButton = document.getElementById("garden-button");
+    const gardenCount = document.getElementById("garden-count");
+    const maxGardenFlowers = 5;
+    gardenButton.addEventListener("click", () => {
+      if (flowerCount >= maxGardenFlowers) return;
       const flower = document.createElement("span");
-      flower.textContent = ["🌷", "🌸", "🌼", "🌺", "💐"][flowerCount % 5];
+      flower.textContent = ["🌷", "🌸", "🌼", "🌺", "💐"][flowerCount];
       flower.setAttribute("aria-hidden", "true");
       gardenBed.append(flower);
       flowerCount += 1;
       gardenBed.setAttribute("aria-label", `Jardín con ${flowerCount} ${flowerCount === 1 ? "flor" : "flores"}`);
+      gardenCount.textContent = `${flowerCount} de ${maxGardenFlowers} flores`;
+      if (flowerCount === maxGardenFlowers) {
+        gardenButton.disabled = true;
+        gardenButton.textContent = "¡Jardín completo! 🌷";
+      }
     });
 
     document.querySelectorAll(".coupon-button").forEach((coupon) => {
